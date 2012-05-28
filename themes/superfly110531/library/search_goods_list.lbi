@@ -1,0 +1,93 @@
+{if isset($goods_list)}
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs order">
+		<em class="label">{$lang.order_by}{$lang.colon}</em>
+		{if $pager.search.sort eq 'goods_id'}
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=goods_id&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#goods_list" class="current"><span>{$lang.order_by_time}{if $pager.search.order eq 'DESC'}<em class="arrow_up">&uarr;</em>{else}<em class="arrow_down">&darr;</em>{/if}</span></a>
+		{else}
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=goods_id&order=DESC#goods_list"><span>{$lang.order_by_time}</span></a>
+		{/if}
+		{if $pager.search.sort eq 'last_update'}
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=last_update&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#goods_list" class="current"><span>{$lang.order_by_update}{if $pager.search.order eq 'DESC'}<em class="arrow_up">&uarr;</em>{else}<em class="arrow_down">&darr;</em>{/if}</span></a>
+		{else}
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=last_update&order=DESC#goods_list"><span>{$lang.order_by_update}</span></a>
+		{/if}
+		{if $pager.search.sort eq 'shop_price'}
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=shop_price&order={if $pager.search.order eq 'DESC'}ASC{else}DESC{/if}#goods_list" class="current"><span>{$lang.order_by_price}{if $pager.search.order eq 'ASC'}<em class="arrow_up">&uarr;</em>{else}<em class="arrow_down">&darr;</em>{/if}</span></a>
+		{else}
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort=shop_price&order=ASC#goods_list"><span>{$lang.order_by_price}</span></a>
+		{/if}
+	</p>
+	<div class="extra">
+		{if $option.display_mode_enabled}
+		<p class="display">
+		<em>{$lang.display}{$lang.colon}</em>
+		<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort={$pager.search.sort}&order={$pager.search.order}&display=grid#goods_list" title="{$lang.display_grid}" class="dp_grid{if $pager.display eq 'grid'} dp_grid_current{/if}">{$lang.display_grid}</a>
+		{if $option.display_list_enabled}<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort={$pager.search.sort}&order={$pager.search.order}&display=list#goods_list" title="{$lang.display_list}" class="dp_list{if $pager.display eq 'list'} dp_list_current{/if}">{$lang.display_list}</a>{/if}
+		{if $option.display_text_enabled}<a href="search.php?{foreach from=$pager.search key=key item=item}{if $key neq "sort" and $key neq "order"}{$key}={$item}&{/if}{/foreach}page={$pager.page}&sort={$pager.search.sort}&order={$pager.search.order}&display=text#goods_list" title="{$lang.display_text}" class="dp_text{if $pager.display eq 'text'} dp_text_current{/if}">{$lang.display_text}</a>{/if}
+		</p>
+		{/if}
+	</div>
+</div>
+<div class="box" id="goods_list">
+	<div class="hd">
+		<h3>{if $intromode eq 'best'}{$lang.best_goods}{elseif $intromode eq 'new'}{$lang.new_goods}{elseif $intromode eq 'hot'}{$lang.hot_goods}{elseif $intromode eq 'promotion'}{$lang.promotion_goods}{else}{$lang.search_result}{/if}</h3>
+		<div class="extra"></div>
+	</div>
+	<div class="bd goods_list{if $pager.display eq 'list'} display_list{elseif $pager.display == 'text'} display_text{/if}">
+		{if $goods_list}
+		<ul>
+			{foreach from=$goods_list item=goods name=goods_list}
+			{if $goods.goods_id}
+			<li{if $pager.display eq 'grid'}{if $smarty.foreach.goods_list.index%4 eq 0} class="first_child"{/if}{elseif $pager.display eq 'list'}{if $smarty.foreach.goods_list.index%2 eq 0} class="first_child"{/if}{elseif $pager.display eq 'text'}{if $smarty.foreach.goods_list.first} class="first"{/if}{/if} data="id:'{$goods.goods_id}'">
+				<span class="photo">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="image"><img src="{$option.static_path}{if $pager.display eq 'list'}{$goods.goods_img}{else}{$goods.goods_thumb}{/if}" alt="{$goods.goods_name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="name">{$goods.goods_name}</a>
+					<em class="price"><font color="#333333">{$lang.list_zongjia}</font>{if $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}&nbsp;&nbsp;&nbsp;&nbsp;<font color="#333333">{$lang.list_fs}</font>{$goods.goods_number}</em>{if $goods.promote_price}<span class="promo" title="{$goods.shop_price|escape:html} &gt; {$goods.promote_price|escape:html}">{$lang.sale}</span>{/if}
+                    {if $goods.type eq "10"}
+                    <em>{$lang.list_danjia}{$goods.danjia}&nbsp;<font color="#FF3333">{$lang.huobi_rmb}/{$goods.danwei}</font></em>
+					{/if}
+					{if $pager.display eq 'text'}&nbsp;&nbsp;{else}<br/>{/if}		
+                    <em>{$lang.list_wplx}
+							<font color="#0066FF">
+                            {if $goods.type eq "10"}
+                                {$lang.type_yxb}
+                            {/if}
+                            {if $goods.type eq "11"}
+                                {$lang.type_dk}
+                            {/if}
+                            {if $goods.type eq "12"}
+                                {$lang.type_czk}
+                            {/if}
+                            {if $goods.type eq "13"}
+                                {$lang.type_yxzb}
+                            {/if}
+							</font>
+                        </em>
+					{if $pager.display eq 'text'}&nbsp;&nbsp;{else}<br/>{/if}
+				{if $goods.type eq "10" or $goods.type eq "13"}	
+                     <em>{$lang.list_qu}<font color="#FF3333">{if $goods.yxm}{$goods.yxm}{/if}{if $goods.yxqm}/{$goods.yxqm}{/if}{if $goods.yxfm}/{$goods.yxfm}{/if}{if $goods.zhenying}/<font color="#0033FF">{$goods.zhenying}</font>{/if}</font></em>   
+				{/if}
+				</span>
+				{if $pager.display == 'text'}
+				<span class="actions">
+					<a href="javascript:buy({$goods.goods_id})" class="buy button brighter_button"><span>{$lang.btn_buy}</span></a>
+					<a href="javascript:collect({$goods.goods_id});" class="collect button"><span>{$lang.btn_collect}</span></a>
+					{if $option.compare_enabled}<a href="javascript:void(0);" onClick="compare.add({$goods.goods_id},'{$goods.goods_name|truncate:'30'|escape:'html'}','{$goods.type}','{$goods.url}','{$goods.goods_thumb}')" class="compare button"><span>{$lang.btn_compare}</span></a>{/if}
+				</span>
+				{/if}
+			</li>
+			{/if}
+			{/foreach}
+		</ul>
+		{include file='library/pages.lbi'}
+		{else}
+		<p class="empty">{$lang.no_search_result}</p>
+		{/if}
+	</div>
+</div>
+</div>
+{/if}

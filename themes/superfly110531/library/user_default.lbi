@@ -1,0 +1,47 @@
+{siy:load_user_info}
+<p class="user_status">
+	<span class="hello">{$lang.hello}<em>{$info.username}</em></span>
+	<span class="log">{$lang.last_time}<em>{$info.last_time}</em></span>
+	<span class="rank">{$rank_name}{$next_rank_name}</span>
+	{if $info.is_validate eq 0}<span class="email_valid">{$lang.not_validated}<a href="javascript:sendHashMail()">{$lang.resend_hash_mail}</a></span>{/if}
+</p>
+{if $user_notice}<div class="shop_notice notice_box">{$user_notice}</div>{/if}
+<div class="user_dashboard">
+	<div class="item first">
+		<a href="user.php?act=account_detail" class="item_inner"><span class="count"><em class="price">{$siy_user_info.surplus}</em></span><em class="label">{$lang.your_surplus}</em></a>
+	</div>
+	<div class="item">
+		{if $option.points_rule}
+		<a href="user.php?act=transform_points" class="item_inner"><span class="count">{$siy_user_info.points}</span><em class="label">{$lang.your_integral}</em></a>
+		{else}
+		<div class="item_inner"><span class="count">{$siy_user_info.points}</span><em class="label">{$lang.your_integral}</em></div>
+		{/if}
+	</div>
+	<div class="item third">
+		<a href="user.php?act=bonus" class="item_inner"><span class="count">{$siy_user_info.bonus}</span><em class="label">{$lang.your_bonus}</em></a>
+	</div>
+	<div class="item">
+		<a href="user.php?act=order_list" class="item_inner"><span class="count">{$info.order_count}</span><em class="label">{$lang.last_month_order}</em></a>
+	</div>
+</div>
+{if $prompt or $info.shipped_order}
+<div class="box">
+	<div class="hd"><h3>{$lang.your_notice}</h3><div class="extra"></div></div>
+	<div class="bd">
+		<ul class="text_list">
+			{foreach from=$prompt item=item name=prompt_item}
+			<li{if $smarty.foreach.prompt_item.first} class="first"{/if}>{$item.text}</li>
+			{/foreach}
+			{foreach from=$info.shipped_order item=item name=shipped_order_item}
+			<li{if !$prompt and $smarty.foreach.shipped_order_item.first} class="first"{/if}>{$lang.please_received}<a href="user.php?act=order_detail&order_id={$item.order_id}">{$item.order_sn}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}
+<div class="order_list box">
+	<div class="hd"><h3>{$lang.recent_orders}</h3><div class="extra"><a href="user.php?act=order_list">{$lang.more}</a></div></div>
+	<div class="bd">
+		{siy:user_orders number='5'}
+	</div>
+</div>

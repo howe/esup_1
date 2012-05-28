@@ -1,0 +1,233 @@
+<div class="goods_details box thin_box">
+	<div class="hd"><h3></h3><div class="extra"></div></div>
+	<div class="bd">
+		<h1>{if $cfg.show_goodssn}<em>( {$lang.goods_sn}{$goods.goods_sn} )</em>{/if}{$goods.goods_name}</h1>
+		{if $goods.is_shipping}<p class="slogan">{$lang.goods_free_shipping}</p>{/if}
+		<div class="details">
+			<form action="javascript:buy({$goods.goods_id})" method="post" id="purchase_form">
+				<ul class="basic clearfix">
+					{if $goods.is_promote and $goods.gmt_end_time }
+					<li class="sale_price promo"><strong>{$lang.promote_price}{$lang.colon}</strong><em class="price">{$goods.promote_price}</em><em class="org_price">( {$lang.original_price}{$goods.shop_price_formated} )</em></li>
+					{else}
+					<li class="sale_price"><strong>{$lang.shop_price}</strong><em class="price">{$goods.shop_price_formated}</em></li>
+					{/if}
+                    {if $goods.goods_type neq "10" and $goods.goods_type neq "11" and $goods.goods_type neq "12" and $goods.goods_type neq "13"}
+                        {if $rank_prices}
+                        <li class="rank_price_wrapper">
+                            <strong>{$lang.rank_price_label}{$lang.colon}</strong>
+                            {foreach from=$rank_prices item=rank_price key=key}
+                            <span class="rank_price">{$rank_price.rank_name}<em id="rank_price_{$key}" class="price">{$rank_price.price}</em></span>
+                            {/foreach}
+                        </dl>
+                        {/if}                    
+                        {if $volume_price_list}
+                        <li class="volume_price_wrapper">
+                            <strong>{$lang.volume_price_label}{$lang.colon}</strong>
+                            {foreach from=$volume_price_list item=price_list key=price_key}
+                            <span class="volume_price">{$lang.number_to}{$price_list.number}<em id="rank_price_{$key}" class="price">{$price_list.format_price}</em></span>
+                            {/foreach}
+                        </li>
+                        {/if}
+                        {if $cfg.show_marketprice}
+                        <li><strong>{$lang.market_price}</strong><em class="price market_price">{$goods.market_price}</em></li>
+                        {/if}
+                    {/if}
+                    
+                    <!-- You xi bi shu liang -->
+                    {if $goods.yxbsl neq "0" and $goods.yxbsl neq "1" and $goods.goods_type eq "10"}
+					<li><strong>{$lang.yxbsl}</strong>{$goods.yxsl}&nbsp;<font color="#FF0000">{$goods.danwei}</font></li>
+					{/if}
+                    
+                    <!-- You xi bi dan jia -->
+                    {if $goods.danjia neq $goods.shop_price_formated and $goods.goods_type eq "10"}
+					<li><strong>{$lang.danjia}</strong><em class="price">{$goods.danjia}</em>&nbsp;<font color="#FF0000">{$lang.huobi_rmb}/{$goods.danwei}</font></li>
+					{/if}
+                    
+                    <!-- Game Name and Server Name -->
+                    {if $goods.yxm and $goods.goods_type eq "10" or $goods.goods_type eq "13"}
+					<li><strong>{$lang.yxqf}</strong><font color="#FF0000">{if $goods.yxm}{$goods.yxm}{/if}{if $goods.yxqm}/{$goods.yxqm}{/if}{if $goods.yxfm}/{$goods.yxfm}{/if}{if $goods.zhenying}/<font color="#0033FF">{$goods.zhenying}</font>{/if}</font></li>
+					{/if}
+                    
+                    <!-- Game Type Name -->
+                    {if $goods.goods_type}  	
+					<li><strong>{$lang.wplx}</strong>
+                        {if $goods.goods_type eq "10"}
+                            {$lang.type_yxb}
+                        {/if}
+                        {if $goods.goods_type eq "11"}
+                            {$lang.type_dk}
+                        {/if}
+                        {if $goods.goods_type eq "12"}
+                            {$lang.type_czk}
+                        {/if}
+                        {if $goods.goods_type eq "13"}
+                            {$lang.type_yxzb}
+                        {/if}
+                    </li>
+					{/if}
+                    
+					{if $goods.goods_brand neq "" and $cfg.show_brand}
+					<li><strong>{$lang.yscs}</strong><a href="{$goods.goods_brand_url}">{$goods.goods_brand}</a></li>
+					{/if}
+					{if $goods.is_promote and $goods.gmt_end_time}
+					<li class="end_time_wrapper"><strong class="label">{$lang.end_time}{$lang.colon}</strong><span class="end_time" title="{siy:date_format date=$goods.gmt_end_time format='Y-m-d-G-i-s'}">{siy:date_format date=$goods.gmt_end_time}</span></li>
+					{/if}
+					{if $cfg.show_goodsweight}
+					<li><strong>{$lang.goods_weight}</strong>{$goods.goods_weight}</li>
+					{/if}
+					{if $goods.goods_number neq "" and $cfg.show_goodsnumber0}
+					<li><strong>{$lang.goods_number}</strong>{$goods.goods_number} {$goods.measure_unit}</li>
+					{/if}
+					{if $cfg.show_addtime}
+					<li><strong>{$lang.add_time}</strong>{$goods.add_time}</li>
+					{/if}
+					{if $option.goods_click_count_enabled}<li><strong>{$lang.goods_click_count}</strong>{$goods.click_count}</li>{/if}
+					{if $goods.give_integral > 0}
+					<li><strong>{$lang.goods_give_integral}</strong>{$goods.give_integral} {$points_name}</li>
+					{/if}
+					{if $cfg.use_integral}
+					<li><strong>{$lang.goods_integral}</strong>{$goods.integral} {$points_name}</li>
+					{/if}
+					{if $goods.bonus_money}
+					<li><strong>{$lang.goods_bonus}</strong>{$goods.bonus_money}</li>
+					{/if}
+				</ul>
+				<div class="actions">
+					{if $specification}
+					<div class="properties">
+						{foreach from=$specification item=spec key=spec_key name=specification}
+						<dl class="clearfix{if $smarty.foreach.specification.first} first{/if}"{if $spec.attr_type eq 2} title="{$lang.multi_choice}"{/if}>
+							<dt>{$spec.name}{$lang.colon}</dt>
+							{if $spec.attr_type eq 1}
+							<dd class="radio">
+								{foreach from=$spec.values item=value key=key}
+								<label for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}">
+									<input type="radio" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}"{if $key eq 0} checked="checked"{/if} />
+								{$value.label}</label>
+								{/foreach}
+							</dd>
+							{else}
+							<dd class="checkbox">
+								{foreach from=$spec.values item=value key=key}
+								<label for="spec_value_{$value.id}" title="{if $value.price gt 0}{$lang.plus}{$value.format_price|abs}{elseif $value.price lt 0}{$lang.minus}{$value.format_price|abs}{/if}">
+									<input type="checkbox" name="spec_{$spec_key}" value="{$value.id}" id="spec_value_{$value.id}" />
+								{$value.label}</label>
+								{/foreach}
+							</dd>
+							{/if}
+						</dl>
+						<input type="hidden" name="spec_list" value="{$key}" />
+						{/foreach}
+					</div>
+					{/if}
+					<p><strong>{$lang.number}{$lang.colon}</strong><input type="text" name="number" value="1" size="4" class="number" id="number" />{$goods.measure_unit}{if $goods.goods_number neq "" and $cfg.show_goodsnumber}<span class="stock">{$lang.goods_number}{$goods.goods_number}{$goods.measure_unit}</span>{/if}</p>
+					<p><strong>{$lang.amount}{$lang.colon}</strong><span class="price amount">{if $goods.is_promote and $goods.gmt_end_time }{$goods.promote_price}{else}{$goods.shop_price}{/if}</span></p>
+					<p>
+					{if $goods.goods_number == 0}
+					<a href="user.php?act=add_booking&id={$goods.goods_id}" class="submit btn_special btn_booking"><span>{$lang.btn_booking}</span></a>
+					{else}
+					<a href="javascript:buy({$goods.goods_id})" class="submit btn_special btn_add_to_cart"><span>{$lang.btn_buy}</span></a>
+					{/if}
+					</p>
+				</div>
+				<p class="extra_options">
+					<a href="javascript:collect({$goods.goods_id})" class="col">{$lang.collect}</a>
+					{if $affiliate.on}<a href="user.php?act=affiliate&goodsid={$goods.goods_id}" class="aff">{$lang.recommend}</a>{/if}
+				</p>
+				{siy:share_this}
+			</form>
+		</div>
+		<div class="extra_details">
+			{if $option.gallery_mode eq 'flash'}
+			<div class="gallery" id="gallery">
+				{if $pictures.0.img_url}<a href="gallery.php?id={$id}&img={$pictures.0.img_id}" title="{$goods.goods_name}" class="cover" rel="external"><img src="{$option.static_path}{$goods.goods_img}"/></a>{else}<span class="cover"><img src="{$option.static_path}{$goods.goods_img}" alt="{$goods.goods_name}" title="{$goods.goods_name}"/></span>{/if}
+				{if $pictures.1.img_url}
+				<div class="thumb">
+					<div class="thumb_inner">
+					<ul>
+						{foreach from=$pictures item=picture name=pictures}
+						<li><a href="{$option.static_path}gallery.php?id={$id}&img={$picture.img_id}" title="{$picture.img_desc}" rel="external"><img src="{$option.static_path}{if $picture.thumb_url}{$picture.thumb_url}{else}{$picture.img_url}{/if}" alt="{$picture.img_desc}"></a></li>
+						{/foreach}
+					</ul>
+					</div>
+				</div>
+				{/if}
+			</div>
+			{elseif $option.gallery_mode eq 'color_box'}
+			<div class="gallery" id="gallery">
+				{if $pictures.0.img_url}<a href="{$option.static_path}{$pictures.0.img_url}" title="{$goods.goods_name}" class="cover" rel="gallery"><img src="{$option.static_path}{$goods.goods_img}"/></a>{else}<span class="cover"><img src="{$option.static_path}{$goods.goods_img}" alt="{$goods.goods_name}" title="{$goods.goods_name}"/></span>{/if}
+				{if $pictures.1.img_url}
+				<div class="thumb">
+					<div class="thumb_inner">
+					<ul>
+						{foreach from=$pictures item=picture name=pictures}
+						<li><a href="{$option.static_path}{$picture.img_url}" title="{$picture.img_desc}" rel="gallery"><img src="{$option.static_path}{if $picture.thumb_url}{$picture.thumb_url}{else}{$picture.img_url}{/if}" alt="{$picture.img_desc}"></a></li>
+						{/foreach}
+					</ul>
+					</div>
+				</div>
+				{/if}
+			</div>
+			{elseif $option.gallery_mode eq 'cloud_zoom'}
+			<div class="gallery" id="gallery">
+				{if $pictures.0.img_url}<a href="{$option.static_path}{$pictures.0.img_url}" title="{$goods.goods_name}" class="cover cloud_zoom" id="product_img_large"><img src="{$option.static_path}{$goods.goods_img}"/></a>{else}<span class="cover"><img src="{$option.static_path}{$goods.goods_img}" alt="{$goods.goods_name}" title="{$goods.goods_name}"/></span>{/if}
+				{if $pictures.1.img_url}
+				<div class="thumb">
+					<div class="thumb_inner">
+					<ul>
+						{foreach from=$pictures item=picture name=pictures}
+						<li><a href="{$option.static_path}{$picture.img_url}" title="{$picture.img_desc}" class="cloud_zoom_gallery" rel="useZoom: 'product_img_large', smallImage: '{$option.static_path}{if $option.gallery_thumbnails_enabled}{$picture.thumb2}{else}{$picture.img_url}{/if}', title: '{$picture.img_desc}'"><img src="{$option.static_path}{if $picture.thumb_url}{$picture.thumb_url}{else}{$picture.img_url}{/if}" alt="{$picture.img_desc}"></a></li>
+						{/foreach}
+					</ul>
+					</div>
+				</div>
+				{/if}
+			</div>
+			{else}
+			<div class="gallery" id="gallery">
+				{if $pictures.0.img_url}<a href="{$option.static_path}{$pictures.0.img_url}" title="{$goods.goods_name}" class="cover" rel="external"><img src="{$option.static_path}{$goods.goods_img}"/></a>{else}<span class="cover"><img src="{$option.static_path}{$goods.goods_img}" alt="{$goods.goods_name}" title="{$goods.goods_name}"/></span>{/if}
+				{if $pictures.1.img_url}
+				<div class="thumb">
+					<div class="thumb_inner">
+					<ul>
+						{foreach from=$pictures item=picture name=pictures}
+						<li><a href="{$option.static_path}{$picture.img_url}" title="{$picture.img_desc}" rel="external"><img src="{$option.static_path}{if $picture.thumb_url}{$picture.thumb_url}{else}{$picture.img_url}{/if}" alt="{$picture.img_desc}"></a></li>
+						{/foreach}
+					</ul>
+					</div>
+				</div>
+				{/if}
+			</div>
+			{/if}
+			{if $promotion.0.url}
+			<dl class="goods_promotion">
+				<dt>{$lang.activity}</dt>
+				{foreach from=$promotion item=item key=key}
+				<dd>{if $item.type eq "snatch"}<a href="snatch.php" class="type type_snatch">{$lang.snatch}</a>
+				{elseif $item.type eq "group_buy"}<a href="group_buy.php" class="type type_group_buy">{$lang.group_buy}</a>
+				{elseif $item.type eq "auction"}<a href="auction.php" class="type type_auction">{$lang.auction}</a>
+				{elseif $item.type eq "favourable"}<a href="activity.php" class="type type_activity">{$lang.favourable}</a>
+				{elseif $item.type eq "package"}<a href="package.php" class="type type_package">{$lang.remark_package}</a>
+				{/if}<a href="{$item.url}">{$item.act_name}</a>
+				{/foreach}
+				</dd>
+			</dl>
+			{/if}
+			{if $option.tags_enabled}
+			<div class="goods_tags clearfix">
+				<h2>{$lang.goods_tags}</h2>
+				<p id="tags" class="tags">
+					{foreach from=$tags item=tag}
+					<a href="search.php?keywords={$tag.tag_words|escape:url}" class="item">{$tag.tag_words|escape:html}<em>{$tag.tag_count}</em></a>
+					{/foreach}&nbsp;
+				</p>
+				<form action="javascript:void(0);" onSubmit="return submitTag()" id="tag_form" class="tag_form">
+					<input type="text" name="tag" class="tag_input"/>
+					<input type="submit" value="{$lang.add}" class="btn_s1"/>
+					<input type="hidden" name="goods_id" value="{$goods.goods_id}"/>
+				</form>
+			</div>
+			{/if}
+		</div>
+	</div>
+</div>

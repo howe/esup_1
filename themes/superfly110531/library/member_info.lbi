@@ -1,0 +1,14 @@
+{if $user_info}
+<em>{$lang.hello}&nbsp;{if $user_info.alias}{$user_info.alias}{else}{$user_info.username|truncate:15}{/if}</em>
+<a href="user.php" class="gotouser">{$lang.edit_user_info}</a>
+<a href="user.php?act=logout" class="logout">{$lang.user_logout}</a>
+{else}
+<em>{$lang.welcome_to}{$shop_name}{$lang.excla}</em>
+<a href="user.php?act=register" class="register">{$lang.reg_free}</a>
+<a href="user.php?act=login" class="login{if $smarty.get.act neq 'login' && $smarty.get.step neq 'login'} quick_login{/if}">{$lang.login}</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+合作网站帐号登录&nbsp;
+<a href="plugins/weibo-oauth/" title="新浪微博登录"><img src="http://www.sinaimg.cn/blog/developer/wiki/16x16.png" height="16"></a>
+<a href="plugins/QQ-oauth/" title="QQ登录"><img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png" height="16"></a>
+<a href="alipayLogin/auth_authorize.php?type=user" title="支付宝快捷登录"><img src="http://www.esup.cn/images/AliPayLogoBig.png" height="16"></a>
+{/if}

@@ -1,0 +1,3 @@
+{if $end_date}
+<span class="end_time_wrapper"><span class="end_time" title="{$end_date2}">{$end_date}</span></span>
+{/if}

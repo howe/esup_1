@@ -1,0 +1,36 @@
+{if $smarty.get.ajax neq 1}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="article article_pro box thin_box full_box">
+		<div class="hd"><h3></h3><div class="extra"></div></div>
+		<div class="bd{if $smarty.get.ajax eq 1} ap_ajax{/if}">
+{/if}
+			<div class="article_title clearfix">
+				<h1>{$article.title|escape:html}</h1>
+			</div>
+			{if $article.content }
+			<div class="article_content">{$article.content}</div>
+			{else}
+			<p class="empty">{$lang.content_empty}</p>
+			{/if}
+{if $smarty.get.ajax neq 1}
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>
+{/if}

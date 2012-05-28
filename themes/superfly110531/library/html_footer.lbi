@@ -1,0 +1,171 @@
+{$render.before_html_footer}
+{if $smarty.server.SERVER_NAME eq 'demo.shopiy.com'}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script>!window.jQuery && document.write(unescape('%3Cscript type="text/javascript" src="{$option.static_path}static/js/jquery.js"%3E%3C/script%3E'))</script>
+{else}
+<script type="text/javascript" src="{$option.static_path}static/js/jquery.js"></script>
+{/if}
+<script type="text/javascript" src="{$option.static_path}static/js/plugins.js"></script>
+<script type="text/javascript" src="{$option.static_path}static/js/lang.js"></script>
+<script type="text/javascript" src="{$option.static_path}static/js/global.js"></script>
+<script type="text/javascript" src="{$option.static_path}static/js/init.js"></script>
+{if $smarty.session.flow_type and $smarty.session.flow_type neq '0'}<script type="text/javascript">var ajax_cart_disabled = true;</script>{/if}
+{if $option.goods_popup_menu_enabled}<script type="text/javascript">var goods_popup_menu_enabled = true;</script>{/if}
+{if $pname eq 'index'}
+<script type="text/javascript">
+var order_input = $('#order_query input[name="order_sn"]');
+var vote_form = $('#vote form');
+var subscription_email = $('#subscription input[name="email"]');
+$(document).ready(function() {
+	$('.slider').Slidiy();
+	$('.col_main .goods_list').append(loader);
+	$('.selector a').click(function() {
+		$(this).addClass('current').siblings().removeClass('current');
+		$(this).parents('.box').find('.loader').css({visibility:'visible'}).fadeTo(0, 1000);
+	});
+	$('.col_main .selector').css({visibility:'visible'}).hoverscroll({
+		width: ($('html.wide').length > 0)?550:350,
+		height: 31
+	});
+
+	$('#order_query').append(loader).append(result);
+	order_input.tipsy({
+		trigger:'manual',gravity:'s',fade: true
+	}).focusout(function() {
+		$(this).tipsy('hide');
+	}).keypress(function() {
+		$(this).tipsy('hide');
+	});
+	$('#order_query input[type="button"]').click(function() {
+		orderQuery();
+	});
+
+	$('#vote').append(loader).append(result);
+	vote_form.tipsy({
+		trigger:'manual',gravity:'s',fade: true
+	}).focusout(function() {
+		$(this).tipsy('hide');
+	});
+	$('#vote input[name="option_id"]').change(function() {
+		vote_form.tipsy('hide');
+	});
+
+	$('#subscription').append(loader).append(result);
+	subscription_email.tipsy({
+		trigger:'manual',gravity:'s',fade: true
+	}).focusout(function() {
+		$(this).tipsy('hide');
+	}).keypress(function() {
+		$(this).tipsy('hide');
+	});
+});
+</script>
+{/if}
+{if $option.compare_enabled and ($pname eq 'category' or $pname eq 'search' or $pname eq 'brand')}
+<script type="text/javascript" src="{$option.static_path}static/js/compare.js"></script>
+{/if}
+{if $pname eq 'goods'}
+<script type="text/javascript">
+var goodsId = {$goods_id};
+$(document).ready(function() {
+	$('#goods_info').Tabiy();
+	{if $specification}
+	$('.properties').Formiy();
+	$('.properties dl').tipsy({gravity: 'e',fade: true,html:true});
+	$('.properties label').tipsy({gravity: 's',fade: true,html:true});
+	{/if}
+	$('#gallery .thumb_inner').mSlidiy({num:5,step:3});
+	$('#purchase_form').ChangePriceSiy();
+	{if $option.gallery_mode eq 'color_box'}
+	$('#gallery a').colorbox();
+	{/if}
+});
+</script>
+{/if}
+{if $pname eq 'flow'}
+<script type="text/javascript" src="{$option.static_path}static/js/flow.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('input[name^="goods_number"]').tipsy({trigger:'manual',gravity:'sw',fade: true});
+	$('input[name^="goods_number"]').keypress(function(){
+		$(this).tipsy('show');
+	});
+	$('input[name^="goods_number"]').focusout(function(){
+		$(this).tipsy('hide');}
+	);
+	{if $step eq 'login'}validLogin();{/if}
+	$('#cart').mouseenter(function(){
+		$('#cart .list_wrapper').show();
+	});
+	$('#cart').mouseleave(function(){
+		$('#cart .list_wrapper').hide();
+	});
+	$('.cart_list li').hover(function(){
+		$(this).addClass('hover');
+	}, function(){
+		$(this).removeClass('hover');
+	});
+});
+{if $step eq 'checkout'}var action = 'checkout';{/if}
+</script>
+{/if}
+{if $pname eq 'user' and ($action eq 'login' or $action eq 'register' or $action eq 'get_password' or $action eq 'qpassword_name' or $action eq 'get_passwd_question' or $action eq 'reset_password')}
+<script type="text/javascript" src="{$option.static_path}static/js/user.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	{if $action eq 'login'}validLogin();{/if}
+	{if $action eq 'register'}validRegister();{/if}
+	{if $action eq 'get_password'}validGetpw();{/if}
+	{if $action eq 'qpassword_name'}validQpn();{/if}
+	{if $action eq 'get_passwd_question'}validGpq();{/if}
+	{if $action eq 'reset_password'}validRpw();{/if}
+});
+</script>
+{/if}
+{if $pname eq 'exchange' and $smarty.get.id gt 0}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.properties').Formiy();
+	$('.properties dl').tipsy({gravity: 'e',fade: true,html:true});
+	$('.properties label').tipsy({gravity: 's',fade: true,html:true});
+	$('#gallery .thumb_inner').mSlidiy({num:5,step:3});
+	{if $option.gallery_mode eq 'color_box'}
+	$('#gallery a').colorbox();
+	{/if}
+});
+</script>
+{/if}
+{if $pname eq 'group_buy' and $smarty.get.id gt 0}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.properties').Formiy();
+	$('.properties dl').tipsy({gravity: 'e',fade: true,html:true});
+	$('.properties label').tipsy({gravity: 's',fade: true,html:true});
+});
+</script>
+{/if}
+{if $pname eq 'snatch'}
+<script type="text/javascript">
+$(document).ready(function() {
+	setInterval('newPrice(' + {$id} + ')', 8000);
+});
+</script>
+{/if}
+{if $pname eq 'activity'}
+<script type="text/javascript">
+$(document).ready(function() {
+	var link_item = $(location.hash);
+	if (link_item.length == 1 && link_item.siblings().length > 0) {
+		link_item.addClass('current').siblings().hide();
+		link_item.parent().append('<a href="javascript:void(0);" class="show_all button bright_button"><span>'+lang.show_all+'</span></a>');
+		link_item.parent().find('.show_all').click(function(){
+			link_item.addClass('bright_current').siblings().show();
+			$(this).hide();
+		});
+	};
+});
+</script>
+{/if}
+{$render.after_html_footer}
+{$stats_code}
+{include file='library/kefu.lbi'}

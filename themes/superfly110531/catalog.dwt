@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="all_cat_list box full_box">
+		<div class="hd"><h3>{$lang.catalog}</h3><div class="extra"></div></div>
+		<div class="bd">
+			<dl>
+				{foreach from=$cat_list item=cat}
+				{if $cat.level gt 0}
+				<dd{if $cat.has_children neq 0} class="parent"{/if}><a href="{$cat.url}" title="{$cat.cat_name}">{$cat.cat_name}</a></dd>
+				{else}
+				<dt{if $cat.has_children neq 0} class="parent"{/if}><a href="{$cat.url}" title="{$cat.cat_name}">{$cat.cat_name}</a></dt>
+				{/if}
+				{/foreach}
+			</dl>
+		</div>
+	</div>
+	<div class="brand_list all_brand_list box full_box">
+		<div class="hd"><h3>{$lang.all_brand}</h3><div class="extra"></div></div>
+		<div class="bd">
+			<ul>
+				{foreach from=$brand_list item=brand}
+				<li>{if $brand.brand_logo}<a href="{$brand.url}" class="logo"><img src="{$option.static_path}data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name}({$brand.goods_num})"/></a><a href="{$brand.url}" class="name">{$brand.brand_name}</a>{else}<a href="{$brand.url}" class="logo">{$brand.brand_name}</a>{/if}</li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

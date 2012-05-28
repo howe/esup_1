@@ -1,0 +1,33 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$.ajaxSetup({cache:false});
+	$(window).scroll(function()
+	{
+		$('#theme-tips').animate({top:$(window).scrollTop()+100+"px" },{queue: false, duration: 0});  
+	});
+	$("#theme-tips")._list({
+		'transitionIn'	: 'elastic',
+		'transitionOut'	: 'elastic'
+	});
+	{if $pname eq 'index'}$("#theme-tips").trigger('click');{/if}
+});
+</script>
+<style type="text/css">
+#theme-tips{display:block;height:4em;width:1em;padding:.3em;color:#fff;font-size:14px;font-weight:bold;background-color:#3b3d44;position:absolute;top:100px;right:0;-moz-border-radius-topleft:5px;-moz-border-radius-bottomleft:5px;-webkit-border-top-left-radius:5px;-webkit-border-bottom-left-radius:5px;}
+#theme-tips:hover{background-color:#ac3231;text-decoration:none;}
+.theme-tips{width:600px;padding:30px;background-color:#fff;border:10px solid #3b3d44;position:relative;}
+.theme-tips h2{color:#ac3231;}
+.theme-tips h2 em{color:#999;font-size:.8em;}
+.theme-tips h3{color:#ac3231;margin-top:10px;}
+.theme-tips p{font-size:14px;line-height:18px;margin-top:10px;}
+.theme-tips .notice_box{padding:10px;margin-bottom:10px;border:2px solid #FFD324;line-height:1.2em;background:#FFF6BF;color:#514721;}
+.demo-link{margin-top:10px;}
+.demo-link li{display:block;width:180px;float:left;padding:3px 8px;}
+.demo-link li a{color:#027b98;font-size:14px;font-weight:bold;}
+.demo-link li em{font-size:12px;}
+.demo-user span{display:inline-block;width:240px;float:left;margin-top:10px;margin-left:20px;padding:10px;background:#eee;border:1px solid #999;}
+.demo-user b{display:block;clear:both;}
+.theme-tips .buy{position:absolute;top:10px;right:10px;padding:10px;color:#8a1f11;font-size:18px;font-weight:bold;background:#FBE3E4;border:2px solid #FBC2C4;}
+.theme-tips .buy:hover{background-position:0 -60px;}
+</style>
+<a href="theme-tips.html" id="theme-tips">模板提示</a>

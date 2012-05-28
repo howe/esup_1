@@ -1,0 +1,57 @@
+{if $comments}
+<ul class="comment_list clearfix">
+	{foreach from=$comments item=comment name=comments}
+	<li class="{cycle values="odd,even"}{if $smarty.foreach.comments.first} first{/if}">
+		<div class="info">
+			<span class="name">{if $comment.username}{$comment.username|escape:html}{else}{$lang.anonymous}{/if}</span>
+			<span class="time">{$comment.add_time}</span>
+			<span class="rank rank_{$comment.rank}">{$lang.label_comment_rank}{if $comment.rank eq '1'}{$lang.comment_rank_1}{elseif $comment.rank eq '2'}{$lang.comment_rank_2}{elseif $comment.rank eq '3'}{$lang.comment_rank_3}{elseif $comment.rank eq '4'}{$lang.comment_rank_4}{elseif $comment.rank eq '5'}{$lang.comment_rank_5}{/if}</span>
+		</div>
+		<div class="talk">
+			<p class="text">{$comment.content}</p>
+			{if $comment.re_content}
+			<blockquote class="reply"><span class="name">{$lang.re_name}</span><p>{$comment.re_content}</p></blockquote>
+			{/if}
+		</div>
+	</li>
+	{/foreach}
+</ul>
+{include file='library/pages.lbi'}
+{else}
+<p class="empty">{$lang.no_comments}</p>
+{/if}
+<h2 class="title"><span>{$lang.comment_form_title}</span><em class="extra"></em></h2>
+<form action="javascript:;" onsubmit="submitComment(this)" method="post" class="form">
+	<fieldset>
+		<p class="label"><b>{$lang.label_username}</b>
+			<em>{if $smarty.session.user_name}{$username}{else}{$lang.anonymous}{/if}</em>
+		</p>
+		<label for="cf_email"><b><span class="req">*</span>{$lang.label_email}</b>
+			<input type="text" name="email" tabindex="1" value="{$smarty.session.email|escape}" id="cf_email"/>
+		</label>
+				<fieldset class="radio_wrap label"><b>{$lang.label_comment_rank}</b>
+					<fieldset>
+					<input type="radio" name="comment_rank" value="1" tabindex="6" class="radio rank_star" title="{$lang.comment_rank_1}"/>
+					<input type="radio" name="comment_rank" value="2" tabindex="5" class="radio rank_star" title="{$lang.comment_rank_2}"/>
+					<input type="radio" name="comment_rank" value="3" tabindex="4" class="radio rank_star" title="{$lang.comment_rank_3}"/>
+					<input type="radio" name="comment_rank" value="4" tabindex="3" class="radio rank_star" title="{$lang.comment_rank_4}"/>
+					<input type="radio" name="comment_rank" value="5" checked="checked" class="radio rank_star" title="{$lang.comment_rank_5}"/>
+					<em id="star_tip"></em>
+					</fieldset>
+				</fieldset>
+		<label for="cf_content"><b><span class="req">*</span>{$lang.comment_content}{$lang.colon}</b>
+			<textarea name="content" rows="6" cols="20" tabindex="7" id="cf_content"></textarea>
+		</label>
+		{if $enabled_captcha}
+		<label for="cf_captcha"><b><span class="req">*</span>{$lang.comment_captcha}{$lang.colon}</b>
+			<input type="text" name="captcha" size="6" tabindex="8" class="captcha" id="cf_captcha"/>
+			<img src="captcha.php?{$rand}" alt="{$lang.comment_captcha}" class="captcha tip" title="{$lang.captcha_tip}" onClick="this.src='captcha.php?'+Math.random()"/>
+		</label>
+		{/if}
+		<div class="submit_wrap">
+			<input type="submit" value="{$lang.submit_comment}" tabindex="9" class="submit btn_s2_b"/>
+			<input type="hidden" name="cmt_type" value="{$comment_type}" />
+			<input type="hidden" name="id" value="{$id}" />
+		</div>
+	</fieldset>
+</form>

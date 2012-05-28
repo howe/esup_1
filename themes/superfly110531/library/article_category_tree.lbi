@@ -1,0 +1,36 @@
+{if $article_categories}
+<div class="box fancy_box article_category">
+	<div class="hd"><h3>{$lang.article_cat}</h3><div class="extra"></div></div>
+	<div class="bd{if $option.category_show_children} show_children{/if}">
+		<ul class="level_1">
+			{foreach from=$article_categories item=cat name=article_categories}
+			<li class="level_1{if $smarty.foreach.article_categories.first} first{/if}">
+				<a href="{$cat.url}" class="level_1"><span>{$cat.name}</span></a>
+				{if $cat.children}
+				<div class="sub_cat_lv1">
+					<ul class="level_2 clearfix">
+						{foreach from=$cat.children item=child}
+						<li class="level_2{if $smarty.foreach.child.first} first{/if}"><a href="{$child.url}" class="level_2"><span>{$child.name}</span></a></li>
+						{/foreach}
+					</ul>
+				</div>
+				{/if}
+			</dl>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}
+<div class="help_center box">
+	<div class="hd"><h3>{$lang.help_center}</h3><div class="extra"></div></div>
+	<div class="bd">
+		{foreach from=$helps item=help_cat name=helps}
+		<dl{if $smarty.foreach.helps.first} class="first"{/if}>
+			<dt><a href="{$help_cat.cat_id}">{$help_cat.cat_name}</a></dt>
+			{foreach from=$help_cat.article item=item name=help_list}
+			<dd><a href="{$item.url}">{$item.short_title}</a></dd>
+			{/foreach}
+		</dl>
+		{/foreach}
+	</div>
+</div>

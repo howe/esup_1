@@ -1,0 +1,109 @@
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs">
+		<a href="user.php?act=collection_list" id="tab_collection_list" class="current"><span>{$lang.label_collection}</span></a>
+		<a href="user.php?act=booking_list" id="tab_booking_list"><span>{$lang.label_booking}</span></a>
+	</p>
+	<div class="extra"></div>
+</div>
+<div class="collection_list box">
+	<div class="hd"><h3>{$lang.label_collection}</h3><div class="extra"></div></div>
+	<div class="bd goods_list display_text">
+		{if $goods_list}
+		<ul>
+			{foreach from=$goods_list item=goods name=goods_list}
+			<li{if $smarty.foreach.goods_list.first} class="first"{/if}>
+				<span class="photo">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="image"><img src="{$option.static_path}{siy:goods_info id=$goods.goods_id type='goods_thumb'}" alt="{$goods.goods_name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$goods.url}" title="{$goods.goods_name|escape:html}" class="name">{$goods.goods_name}</a>
+					<em class="price">{if $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}</em>{if $goods.promote_price}<span class="promo" title="{$goods.shop_price|escape:html} &gt; {$goods.promote_price|escape:html}">{$lang.sale}</span>{/if}
+				</span>
+				<span class="actions">
+					<a href="javascript:buy({$goods.goods_id})" class="button"><span>{$lang.add_to_cart}</span></a>
+					<a href="user.php?act=delete_collection&collection_id={$goods.rec_id}" class="button text_button"><span>{$lang.drop}</span></a>
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+		{else}
+		<p class="empty">{$lang.collection_empty}</p>
+		{/if}
+		{if $goods_list}{include file='library/pages.lbi'}{/if}
+		<h2 class="title"><span>{$lang.generate_code_title}</span><em class="extra"></em></h2>
+		<form name="theForm" method="post" action="" class="generate_code form">
+			<fieldset>
+				<div class="options">
+					<label for="need_image"><b>{$lang.label_need_image}</b>
+						<select name="need_image" tabindex="1" id="need_image">
+							<option value="true" selected="selected">{$lang.need}</option>
+							<option value="false">{$lang.need_not}</option>
+						</select>
+					</label>
+					<label for="goods_num"><b><span class="req">*</span>{$lang.label_goods_num}</b>
+						<input type="text" name="goods_num" value="6" size="4" tabindex="2" class="input" id="goods_num"/>
+					</label>
+					<label for="arrange"><b>{$lang.label_arrange}</b>
+						<select name="arrange" tabindex="3" id="arrange">
+							<option value="h" selected="selected">{$lang.horizontal}</option>
+							<option value="v">{$lang.verticle}</option>
+						</select>
+					</label>
+					<label for="rows_num"><b><span class="req">*</span>{$lang.label_rows_num}</b>
+						<input type="text" name="rows_num" value="1" size="4" tabindex="4" class="input" id="rows_num"/>
+					</label>
+					<label for="charset"><b>{$lang.label_charset}</b>
+						<select name="charset" tabindex="5" id="charset">
+							{html_options options=$lang_list}
+						</select>
+					</label>
+					<div class="submit_wrap">
+						<input type="button" name="gen_code" value="{$lang.generate}" tabindex="6" class="submit btn_s3" onclick="genCode()"/>
+					</div>
+				</div>
+				<div class="code_wrapper">
+					<label for="code">
+						<textarea name="code" rows="6" cols="20" tabindex="7" id="code"></textarea>
+					</label>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+var elements = document.forms['theForm'].elements;
+var url = '{$url}';
+var u   = '{$user_id}';
+function genCode() {
+	if (isNaN(parseInt(elements['goods_num'].value))) {
+		alert('{$lang.goods_num_must_be_int}');
+		return;
+	}
+	if (elements['goods_num'].value < 1) {
+		alert('{$lang.goods_num_must_over_0}');
+		return;
+	}
+	if (isNaN(parseInt(elements['rows_num'].value))) {
+		alert('{$lang.rows_num_must_be_int}');
+		return;
+	}
+	if (elements['rows_num'].value < 1) {
+		alert('{$lang.rows_num_must_over_0}');
+		return;
+	}
+	var code = '\<script src=\"' + url + 'goods_script.php?';
+	code += 'need_image=' + elements['need_image'].value + '&';
+	code += 'goods_num=' + elements['goods_num'].value + '&';
+	code += 'arrange=' + elements['arrange'].value + '&';
+	code += 'rows_num=' + elements['rows_num'].value + '&';
+	code += 'charset=' + elements['charset'].value + '&u=' + u;
+	code += '\"\>\</script\>';
+	elements['code'].value = code;
+	elements['code'].select();
+	if (Browser.isIE) {
+		window.clipboardData.setData("Text",code);
+	}
+}
+</script>

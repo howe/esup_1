@@ -1,0 +1,61 @@
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs">
+		<a href="user.php?act=account_detail" id="tab_user_account"><span>{$lang.label_user_surplus}</span></a>
+		<a href="user.php?act=bonus" id="tab_bonus" class="current"><span>{$lang.label_bonus}</span></a>
+	</p>
+	<div class="extra"></div>
+</div>
+<div class="box">
+	<div class="hd"><h3>{$lang.label_bonus}</h3><div class="extra"></div></div>
+	<div class="bd">
+		{if $bonus}
+		<table class="data_table">
+			<colgroup>
+				<col width="140"/>
+				<col width="200"/>
+				<col width="80"/>
+				<col width="100"/>
+				<col width="100"/>
+				<col width="80"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>{$lang.bonus_sn}</th>
+					<th>{$lang.bonus_name}</th>
+					<th>{$lang.bonus_amount}</th>
+					<th>{$lang.min_goods_amount}</th>
+					<th>{$lang.bonus_end_date}</th>
+					<th class="last">{$lang.bonus_status}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$bonus item=item name=bonus}
+				<tr class="{cycle values="odd,even"}{if $smarty.foreach.bonus.last} last{/if}">
+					<td>{$item.bonus_sn|default:N/A}</td>
+					<td>{$item.type_name}</td>
+					<td class="price">{$item.type_money}</td>
+					<td>{$item.min_goods_amount}</td>
+					<td>{$item.use_enddate}</td>
+					<td class="last">{$item.status}</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		{else}
+		<p class="empty">{$lang.user_bonus_empty}</p>
+		{/if}
+		{if $bonus}{include file='library/pages.lbi'}{/if}
+		<form name="addBouns" action="user.php" method="post" onSubmit="return addBonus()" class="add_bonus">
+				<label for="bonus_sn">{$lang.bonus_number}{$lang.colon}<input type="text" name="bonus_sn" size="20" id="bonus_sn"/></label>
+				<input type="submit" value="{$lang.add_user_bonus}" class="btn_s4"/>
+				<input type="hidden" name="act" value="act_add_bonus"/>
+		</form>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+{foreach from=$lang.profile_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>

@@ -1,0 +1,39 @@
+{if $categories}
+<div class="category box fancy_box">
+	<div class="hd"><h3>{$categories_parent}</h3><div class="extra"></div></div>
+	<div class="bd{if $option.hide_category_extra} hide_extra{/if}">
+		<ul class="level_1">
+			{foreach from=$categories item=cat name=categories}
+			<li class="level_1{if $smarty.foreach.categories.first} first{/if}{if $cat.current} current{/if}">
+				<p class="level_1"><a href="{$cat.url}" class="level_1"><span>{$cat.name}</span></a></p>
+				{if $cat.cat_id}
+				<div class="sub_cat_lv1">
+					<div class="inner_lv1">
+						<ul class="level_2 clearfix">
+							{foreach from=$cat.cat_id item=child name=child_cat}
+							<li class="level_2{if $smarty.foreach.child_cat.first} first{/if}{if $child.current} current{/if}">
+								<a href="{$child.url}" class="level_2"><span>{$child.name}</span></a>
+								{if $child.cat_id}
+								<div class="sub_cat_lv2">
+									<div class="inner_lv2">
+										<div class="arrow"></div>
+										<ul class="level_3 clearfix">
+											{foreach from=$child.cat_id item=childer name=childer_cat}
+											<li class="level_3{if $childer.current} current{/if}"><a href="{$childer.url}" class="level_3"><span>{$childer.name}</span></a></li>
+											{/foreach}
+										</ul>
+									</div>
+								</div>
+								{/if}
+							</li>
+							{/foreach}
+						</ul>
+					</div>
+				</div>
+				{/if}
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}

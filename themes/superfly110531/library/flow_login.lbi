@@ -1,0 +1,37 @@
+<div class="user_form_box box thin_box full_box">
+	<div class="hd"><h3></h3><div class="extra"></div></div>
+	<div class="bd">
+		<div class="user_form_wrapper clearfix">
+			<form method="post" action="flow.php?step=login" class="user_form" id="user_login">
+				<h1>{$lang.login_title}</h1>
+				<div class="req"><b>*</b>{$lang.required_indicates}</div>
+				<label for="username"><b><span class="req">*</span>{$lang.label_username}{$lang.colon}</b>
+					<input type="text" name="username" value="" tabindex="1" id="username_login"/>
+				</label>
+				<label for="password"><b><span class="req">*</span>{$lang.label_password}{$lang.colon}</b>
+					<input type="password" name="password" value="" tabindex="2" id="password_login"/><em><a href="user.php?act=get_password">{$lang.forgot_password}</a></em>
+				</label>
+				{if $enabled_register_captcha}
+				<label for="captcha"><b><span class="req">*</span>{$lang.comment_captcha}{$lang.colon}</b>
+					<input type="text" name="captcha" maxlength="4" size="6" tabindex="3" class="captcha" id="captcha_login"/><span><img src="captcha.php?is_login=1&{$rand}" alt="{$lang.comment_captcha}" class="captcha tip" title="{$lang.captcha_tip}" onClick="this.src='captcha.php?is_login=1&'+Math.random()"></span>
+				</label>
+				{/if}
+				<fieldset class="checkbox_wrap label"><b>&nbsp;</b>
+					<fieldset>
+					<label for="remember"><input type="checkbox" name="remember" value="1" tabindex="3" class="checkbox" id="remember"/>{$lang.remember}</label>
+					</fieldset>
+				</fieldset>
+				<div class="submit_wrap">
+					<input type="submit" value="{$lang.btn_login}" tabindex="4" class="submit btn_special btn_login"/>
+					{if $anonymous_buy eq 1}<a href="flow.php?step=consignee&amp;direct_shopping=1" class="quick_buy button text_button"><span>{$lang.direct_shopping}</span></a>{/if}
+					<input type="hidden" name="act" value="signin"/>
+				</div>
+			</form>
+			<div class="extra">
+				<h2>{$lang.new_account}</h2>
+				<p>{$lang.register_text}</p>
+				<p><a href="user.php?act=register" class="button"><span>{$lang.register_now}</span></a></p>
+			</div>
+		</div>
+	</div>
+</div>

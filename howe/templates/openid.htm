@@ -1,0 +1,33 @@
+<!-- $Id: shop_config_mail_settings.htm 14216 2008-03-10 02:27:21Z testyang $ -->
+{include file="pageheader.htm"}
+{insert_scripts files="validator.js"}
+<form method="POST" action="openid.php?act=post" name="theForm">
+<div class="main-div"><p style="padding: 0 10px">{$lang.alipay_fastlogin_note}</p></div>
+
+<div class="main-div">
+  <table width="100%">
+    {foreach from=$fastlogin item=var key=key}
+     <tr><td class="label" valign="top">{if $var.code eq 'alipay_id'}{$lang.alipay_pid}:{elseif $var.code eq 'alipay_token'}{$lang.alipay_key}:{else}{$lang.alipay_consignee}:{/if}</td><td>{if $var.code neq 'alipay_consignee'}<input name="{$var.code}" type="text" value="{$var.value}" size="40" />{else}<input type="radio" name="{$var.code}" value="0"{if !$var.value} checked="true"{/if}>{$lang.no} <input type="radio" name="{$var.code}" value="1"{if $var.value} checked="true"{/if}>{$lang.yes}{/if}</td></tr>
+    {/foreach}
+    <tr>
+      <td align="center" colspan="2">
+        <input name="submit" type="submit" value="{$lang.button_submit}" class="button" />
+        <input name="reset" type="reset" value="{$lang.button_reset}" class="button" />
+      </td>
+    </tr>
+  </table>
+</div>
+</form>
+
+{literal}
+<script type="text/javascript" language="JavaScript">
+<!--
+onload = function()
+{
+    // 开始检查订单
+    startCheckOrder();
+}
+//-->
+</script>
+{/literal}
+{include file="pagefooter.htm"}

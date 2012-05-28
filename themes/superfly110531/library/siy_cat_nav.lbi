@@ -1,0 +1,12 @@
+{if $cat_nav}
+<div class="sub_nav level_2">
+	<em class="arrow">&uarr;</em>
+	<div class="inner">
+		<ul class="level_2 clearfix">
+			{foreach from=$cat_nav item=nav name=nav}
+			<li class="level_2{if $smarty.foreach.nav.first} first{/if}"><a href="{$nav.url}" class="level_2" title="{$nav.name|escape:html}">{$nav.name}</a></li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}

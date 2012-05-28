@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $keywords}<meta name="Keywords" content="{$keywords}"/>{/if}
+{if $description}<meta name="Description" content="{$description}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<div class="col_main">
+	{$render.before_col_main}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="主栏" -->
+	<!-- #BeginLibraryItem "/library/recommend_best.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- #BeginLibraryItem "/library/brand_goods_list.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+		<div class="box thin_box brand_details">
+			<div class="hd"><h3>&nbsp;</h3><div class="extra"></div></div>
+			<div class="bd">
+				<h1>{$brand.brand_name}</h1>
+				<p class="description">
+					{if $brand.brand_logo}<img src="{$option.static_path}data/brandlogo/{$brand.brand_logo}" class="logo" />{/if}
+					{$brand.brand_desc|nl2br}
+				</p>
+				{if $brand.site_url}<p class="website">{$lang.official_site}<br /><a href="{$brand.site_url}">{$brand.site_url}</a></p>{/if}
+				<p class="cat_list"><strong>{$lang.brand_category}</strong>{foreach from=$brand_cat_list item=cat}<a href="{$cat.url}"{if $cat.cat_id eq $category} class="current"{/if}>{$cat.cat_name|escape:html}{if $cat.goods_count}<sup>{$cat.goods_count}</sup>{/if}</a>{/foreach}</p>
+			</div>
+		</div>
+	<!-- TemplateBeginEditable name="侧栏" -->
+	<!-- #BeginLibraryItem "/library/recommend_promotion.lbi" --><!-- #EndLibraryItem -->
+	<!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

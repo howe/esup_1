@@ -1,0 +1,15 @@
+<div class="user_nav_wrapper">
+	<h1>{$lang.user_center}</h1>
+	<ul class="user_nav">
+		<li class="user_default{if $action eq 'default'} current{/if}"><a href="user.php">{$lang.dashboard}</a></li>
+		<li class="user_profile{if $action eq 'profile'} current{/if}"><a href="user.php?act=profile">{$lang.profile}</a></li>
+		<li class="user_order_list{if $action eq 'order_list' or $action eq 'order_detail'} current{/if}"><a href="user.php?act=order_list">{$lang.label_order}</a></li>
+		{if $affiliate.on eq 1}<li class="user_affiliate{if $action eq 'affiliate'} current{/if}"><a href="user.php?act=affiliate">{$lang.label_affiliate}</a></li>{/if}
+		<li class="user_collection_list{if $action eq 'collection_list'} current{/if}"><a href="user.php?act=collection_list">{$lang.collections_and_booking}</a></li>
+		{if $option.tags_enabled}<li class="user_tag_list{if $action eq 'tag_list'} current{/if}"><a href="user.php?act=tag_list">{$lang.label_tag}</a></li>{/if}
+		<li class="user_message_list{if $action eq 'message_list'} current{/if}"><a href="user.php?act=message_list">{$lang.messages_and_comments}</a></li>
+		{if $show_transform_points}<li class="{if $action eq 'transform_points'} current{/if}"><a href="user.php?act=transform_points">{$lang.label_transform_points}</a></li>{/if}
+		<li class="user_account last{if $action eq 'account_log' or $action eq 'account_deposit' or $action eq 'account_raply' or $action eq 'account_detail' or $action eq 'act_account' or $action eq 'pay'} current{/if}"><a href="user.php?act=account_detail">{$lang.account_and_bonus}</a></li>
+	</ul>
+</div>
+<p><a href="{$hu}" class="btn_special btn_continue_shopping">{$lang.continue_shopping}</a></p>

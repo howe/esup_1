@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="box thin_box full_box">
+		<div class="hd"><h3></h3><div class="extra"></div></div>
+		<div class="bd">
+			<dl class="message_wrapper message_info">
+				<dt class="title">{$lang.pay_online}</dt>
+				<dd>{$message}</dd>
+				{if $virtual_card}
+				<dd>
+					<ul class="virtual_card clearfix">
+						{foreach from=$virtual_card item=vgoods name=virtual_card}
+						{foreach from=$vgoods.info item=card name=vgoods_info}
+						<li>
+							<span class="type">{$vgoods.goods_name}</span>
+							{if $card.card_sn}<span class="id"><strong>{$lang.card_sn}{$lang.colon}</strong>{$card.card_sn}</em></span>{/if}
+							{if $card.card_password}<span class="serial_code"><strong>{$lang.card_password}{$lang.colon}</strong><em>{$card.card_password}</em></span>{/if}
+							{if $card.card_url}<span class="serial_code"><strong>{$lang.card_url}{$lang.colon}</strong><em><a target="_blank" title="{$lang.card_url}" href="{$card.card_url}">{$card.card_url}</a></em></span>{/if}
+							{if $card.end_date}<span class="expire_date"><strong>{$lang.end_date}{$lang.colon}</strong><em>{$card.end_date}</em></span>{/if}
+						</li>
+						{/foreach}
+						{/foreach}
+					</ul>
+				</dd>
+				{/if}
+				<dd><p>{$order_submit_back}</p></dd>
+			</dl>
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

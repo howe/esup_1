@@ -1,0 +1,26 @@
+{if $smarty.get.ajax eq 1}{include file='library/siy_cart.lbi'}{else}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"{if $step neq 'login'} class="flow_wrapper"{/if}>
+	<div class="container">
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		{if $step eq 'cart'}{include file='library/flow_cart.lbi'}{/if}
+		{if $step eq 'consignee'}{include file='library/flow_consignee.lbi'}{/if}
+		{if $step eq 'checkout'}{include file='library/flow_checkout.lbi'}{/if}
+		{if $step eq 'done'}{include file='library/flow_done.lbi'}{/if}
+		{if $step eq 'login'}{include file='library/flow_login.lbi'}{/if}
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>{/if}

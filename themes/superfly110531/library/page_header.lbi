@@ -1,0 +1,51 @@
+<div id="top">
+	<div class="container">
+		<p class="user_area" id="user_area">{insert name='member_info'}</p>
+			<div class="small_nav top_nav_wrapper">
+			{siy:nav type='top' form='library/siy_small_nav.lbi'}
+		</div>
+	</div>
+</div>
+{$render.before_header}
+<div id="header">
+	<div class="container">
+		<p id="logo"><a href="{$hu}" title="{$shop_name}"><img src="{$option.static_path}{$option.logo}" alt="{$shop_name}"/></a></p>
+		<div class="header_bar">
+			<div class="header_bar_left">&nbsp;</div>
+			<div class="header_bar_right">&nbsp;</div>
+			<div class="cart" id="cart">
+				<p class="cart_info">{insert name='cart_info'}</p>
+				{if $smarty.session.flow_type and $smarty.session.flow_type neq '0'}
+				<div class="list_wrapper">
+				<div class="list">
+					<em class="list_arrow">&uarr;</em>
+					<div class="loader">&nbsp;</div>
+					<p class="cart_empty">{$lang.cart_empty}</p>
+					<a href="javascript:closeCart();" class="close button"><span>{$lang.close}</span></a>
+				</div>
+				</div>
+				{/if}
+			</div>
+			<div class="bright_search">
+				<form method="get" action="search.php" id="search">
+					<input type="text" name="keywords" value="{$search_keywords|escape}" title="{$lang.keyword_tip}" tabindex="1" class="keyword" id="keyword"/>
+					<input type="submit" value="{$lang.btn_search}" class="submit" />
+					<p class="advanced_search"><a href="search.php?act=advanced_search">{$lang.advanced_search}</a></p>
+					{if $searchkeywords}<div class="hot_search_wrapper"><p class="hot_search"><em>{$lang.hot_search}</em>{foreach from=$searchkeywords item=val}<a href="search.php?keywords={$val|escape:url}">{$val}</a>{/foreach}</p></div>{/if}
+				</form>
+			</div>
+			<div class="nav_wrapper">
+				{siy:nav type='middle'}
+			</div>
+			<div class="all_cat_wrapper">
+				<a href="catalog.php" class="all_cat">{$lang.goods_category}</a>
+				{if $pname neq 'index'}
+				{include file='library/all_category.lbi'}
+				{else}
+				<div class="fixed"></div>
+				{/if}
+			</div>
+		</div>
+	</div>
+</div>
+{$render.after_header}

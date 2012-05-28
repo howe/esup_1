@@ -1,0 +1,35 @@
+<div class="box thin_box full_box" id="list">
+	<div class="hd"><h3>{$lang.cart}</h3><div class="extra"></div></div>
+	<div class="bd">
+		<div class="flow_bar flow_step3"></div>
+		<dl class="message_wrapper flow_done">
+			<dt class="title">{$lang.remember_order_number}{$lang.colon}<em>{$order.order_sn}</em></dt>
+			<dd>
+				<p>{if $order.shipping_name}{$lang.select_shipping}{$lang.colon}<em>{$order.shipping_name}</em>
+				{/if}{$lang.select_payment}{$lang.colon}<em>{$order.pay_name}</em>
+				{$lang.order_amount}{$lang.colon}<em class="price">{$total.amount_formated}</em></p>
+			</dd>
+			{if $pay_online}
+			<dd class="pay_online">{$pay_online}</dd>
+			{/if}
+			{if $virtual_card}
+			<dd>
+				<ul class="virtual_card clearfix">
+					{foreach from=$virtual_card item=vgoods name=virtual_card}
+					{foreach from=$vgoods.info item=card name=vgoods_info}
+					<li>
+						<span class="type">{$vgoods.goods_name}</span>
+						{if $card.card_sn}<span class="id"><strong>{$lang.card_sn}{$lang.colon}</strong>{$card.card_sn}</em></span>{/if}
+						{if $card.card_password}<span class="serial_code"><strong>{$lang.card_password}{$lang.colon}</strong><em>{$card.card_password}</em></span>{/if}
+						{if $card.card_url}<span class="serial_code"><strong>{$lang.card_url}{$lang.colon}</strong><em><a target="_blank" title="{$lang.card_url}" href="{$card.card_url}">{$card.card_url}</a></em></span>{/if}
+						{if $card.end_date}<span class="expire_date"><strong>{$lang.end_date}{$lang.colon}</strong><em>{$card.end_date}</em></span>{/if}
+					</li>
+					{/foreach}
+					{/foreach}
+				</ul>
+			</dd>
+			{/if}
+			<dd><p>{$order_submit_back}</p></dd>
+		</dl>
+	</div>
+</div>

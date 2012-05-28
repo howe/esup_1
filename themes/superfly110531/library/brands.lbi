@@ -1,0 +1,23 @@
+{if $brand_list}
+<div class="brands box">
+	<div class="hd"><h3>{$lang.brands_list}</h3><div class="extra"></div></div>
+	<div class="bd">
+		<div class="vertical_slider_wrapper">
+		<div class="vertical_slider">
+		<ul>
+			{foreach from=$brand_list item=brand name=brand}
+			{if $smarty.foreach.brand.index lt $option.index_brands_number}
+			{if $brand.brand_logo}
+			<li class="image{if $smarty.foreach.brand.first} first{/if}"><a href="{$brand.url}" title="{$brand.brand_name|escape:html}"><img src="{$option.static_path}data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name|escape:html}"/></a></li>
+			{else}
+			<li class="text{if $smarty.foreach.brand.first} first{/if}"><a href="{$brand.url}" title="{$brand.brand_name|escape:html}">{$brand.brand_name}</a></li>
+			{/if}
+			{/if}
+			{/foreach}
+		</ul>
+		</div>
+		</div>
+		<div class="bottom_button"><a href="brand.php" class="btn_s4_b">{$lang.all_brand}</a></div>
+	</div>
+</div>
+{/if}

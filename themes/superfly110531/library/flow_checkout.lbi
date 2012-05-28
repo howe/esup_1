@@ -1,0 +1,260 @@
+<script type="text/javascript">
+var flow_no_payment = "{$lang.flow_no_payment}";
+var flow_no_shipping = "{$lang.flow_no_shipping}";
+</script>
+<div class="box thin_box full_box">
+	<div class="hd"><h3></h3><div class="extra"></div></div>
+	<div class="bd">
+		<div class="flow_bar flow_step2"></div>
+		<form action="flow.php?step=done" method="post" class="checkout_wrapper" id="checkout_form">
+			<div class="details">
+				<h2 class="title"><span>{$lang.goods_list}</span><em class="extra">{if $allow_edit_cart}<a href="flow.php" title="{$lang.modify}{$lang.goods_list}" class="tip edit">{$lang.modify}</a>{/if}</em></h2>
+				<div class="cart_list checkout_cart_list">
+					<ul>
+						{foreach from=$goods_list item=goods name=goods_list}
+						<li{if $smarty.foreach.goods_list.first} class="first"{/if}>
+							{if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+							<a href="{siy:goods_info id=$goods.goods_id type='url'}" class="photo" rel="external"><img src="{$option.static_path}{siy:goods_info id=$goods.goods_id type='goods_thumb'}"/></a>
+							<a href="{siy:goods_info id=$goods.goods_id type='url'}" class="name" rel="external">{$goods.goods_name}</a>
+							<span class="extra_info">
+								{if $goods.goods_attr}{$goods.goods_attr}{/if}
+								{if $goods.is_shipping}<em class="carriage_free">{$lang.carriage_free}</em>{/if}
+								{if $goods.parent_id gt 0}<em class="accessories">{$lang.accessories}</em>{/if}
+								{if $goods.is_gift gt 0}<em class="largess">{$lang.largess}</em>{/if}
+							</span>
+							{elseif $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'}
+							<span class="name package_name">{$goods.goods_name}</span>
+							<span class="package_goods_list" >{foreach from=$goods.package_goods_list item=package_goods_list name=package_goods_list}<em>{$package_goods_list.goods_name}</em>{/foreach}</span>
+							{else}
+							{$goods.goods_name}
+							{/if}
+							<span class="price">{$goods.goods_price} &times; {$goods.goods_number}</span>
+							<a href="javascript:cartDrop({$goods.rec_id});" class="drop button"><span>{$lang.drop}</span></a>
+						</li>
+					{/foreach}
+					</ul>
+					<p class="total">{$shopping_money}<br/>{if $discount gt 0}{$your_discount}{/if}</p>
+				</div>
+				<h2 class="title"><span>{$lang.consignee_info}</span><em class="extra">{if $allow_edit_cart}<a href="flow.php?step=consignee" title="{$lang.modify}{$lang.consignee_info}" class="tip edit">{$lang.modify}</a>{/if}</em></h2>
+				<div class="detail_inner">
+					<p class="consignee_info">
+						{if $total.real_goods_count gt 0}
+						{if $consignee.game_nickname}<strong>{$lang.game_nickname}{$lang.colon}</strong>{$consignee.game_nickname|escape}<br />{/if}
+                        {if $consignee.game_level}<strong>{$lang.game_level}{$lang.colon}</strong>{$consignee.game_level|escape}<br />{/if}
+                        {if $consignee.game_jueseid}<strong>{$lang.game_jueseid}{$lang.colon}</strong>{$consignee.game_jueseid|escape}<br />{/if}
+                        {if $consignee.game_zhiye}<strong>{$lang.game_zhiye}{$lang.colon}</strong>{$consignee.game_zhiye|escape}<br />{/if}
+					<!--	
+                    	<strong>{$lang.detailed_address}{$lang.colon}</strong>{$consignee.address|escape}<br />
+                    	{if $consignee.mobile}<strong>{$lang.postalcode}{$lang.colon}</strong>{$consignee.zipcode|escape}<br />{/if}
+                    -->
+						{/if}
+                        <strong>{$lang.consignee_name}{$lang.colon}</strong>{$consignee.consignee|escape}<br />
+						<strong>{$lang.email}{$lang.colon}</strong>{$consignee.email|escape}<br />
+						<strong>{$lang.phone}{$lang.colon}</strong>{$consignee.tel}<br />
+						{if $consignee.mobile}<strong>{$lang.backup_phone}{$lang.colon}</strong>{$consignee.mobile|escape}<br />{/if}
+						{if $total.real_goods_count gt 0}
+						{if $consignee.sign_building}<strong>{$lang.sign_building}{$lang.colon}</strong>{$consignee.sign_building|escape}<br />{/if}
+						{if $consignee.best_time}<strong>{$lang.deliver_goods_time}{$lang.colon}</strong>{$consignee.best_time|escape}<br />{/if}
+						{/if}
+					</p>
+				</div>
+				<h2 class="title"><span>{$lang.fee_total}</span><em class="extra"></em></h2>
+				<div class="detail_inner">
+					<div class="order_total" id="order_total">{include file='library/order_total.lbi'}</div>
+					<p class="flow_action"><input type="submit" value="{$lang.submit_order}" class="next btn_special btn_order_now"/><input type="hidden" name="step" value="done"/><a href="{$hu}" class="back">{$lang.continue_shopping}</a></p>
+				</div>
+			</div>
+			<div class="options">
+				{if $total.real_goods_count neq 0}
+				<div class="option_outer">
+					<div class="option_title"><h2>{$lang.shipping_method}</h2><span class="extra"></span></div>
+					<div class="option_inner clearfix">
+						{foreach from=$shipping_list item=shipping name=shipping_list}
+						{if $smarty.foreach.shipping_list.index%3 eq 0}<hr class="clearer" />{/if}
+						<div class="option_item">
+							<label for="shipping_method_{$shipping.shipping_id}">
+								<span class="name">{$shipping.shipping_name}</span>
+								{siy:get_extra_image prefix='shipping_method_' fname=$shipping.shipping_code}
+								<input type="radio" name="shipping" value="{$shipping.shipping_id}"{if $order.shipping_id eq '13'} checked="checked"{/if} id="shipping_method_{$shipping.shipping_id}" supportCod="{$shipping.support_cod}" insure="{$shipping.insure}" />
+							</label>
+							<span class="intro">{$shipping.shipping_desc}</span>
+							<span class="info">
+								{if $shipping.shipping_fee neq 0}<em class="price">{$shipping.format_shipping_fee}</em>{else}<em class="price">{$lang.free}</em>{/if}
+								{if $shipping.free_money neq $option.price_zero_format}<span class="free">{$lang.free_pre}{$shipping.free_money}{$lang.free_suf}</span>{/if}
+							</span>
+						</div>
+						{/foreach}
+						<div class="insure_wrapper"><label for="ECS_NEEDINSURE"><input type="checkbox" name="need_insure" value="1" id="ECS_NEEDINSURE" onclick="selectInsure(this.checked)"{if $order.need_insure} checked="true"{/if}{if $insure_disabled} disabled="disabled"{/if} />{$lang.need_insure}</label></div>
+					</div>
+				</div>
+				{else}
+				<input type="hidden" name="shipping" value="-1" checked="checked"/>
+				{/if}
+				{if $is_exchange_goods neq 1 || $total.real_goods_count neq 0}
+				<div class="option_outer">
+					<div class="option_title"><h2>{$lang.payment_method}</h2><span class="extra"></span></div>
+					<div class="option_inner clearfix">
+						{foreach from=$payment_list item=payment name=payment_list}
+						{if $smarty.foreach.payment_list.index%3 eq 0}<hr class="clearer" />{/if}
+						<div class="option_item">
+							<label for="payment_method_{$payment.pay_id}">
+								<span class="name">{$payment.pay_name}</span>
+								{siy:get_extra_image prefix='payment_method_' fname=$payment.pay_code}
+								<input type="radio" name="payment" value="{$payment.pay_id}"{if $order.pay_id eq $payment.pay_id} checked="checked"{/if} id="payment_method_{$payment.pay_id}" isCod="{$payment.is_cod}" onclick="selectPayment(this)"{if $cod_disabled and $payment.is_cod eq "1"} disabled="disabled"{/if}/>
+							</label>
+							<span class="intro">{$payment.pay_desc}</span>
+							<span class="info">
+								{if $payment.pay_fee neq 0}<em class="price"{if $payment.is_cod eq '1'} id="ECS_CODFEE"{/if}>{$payment.format_pay_fee}</em>{/if}
+							</span>
+						</div>
+						{/foreach}
+					</div>
+				</div>
+				{else}
+				<input type="radio" name="payment" value="-1" checked="checked" style="display:none"/>
+				{/if}
+				{if $pack_list}
+				<div class="option_outer">
+					<div class="option_title"><h2>{$lang.goods_package}</h2><span class="extra"></span></div>
+					<div class="option_inner clearfix">
+						<div class="option_item">
+							<label for="pack_type_0">
+								<span class="name">{$lang.no_pack}</span>
+								{siy:get_extra_image prefix='pack_type_' fname='0'}
+								<input type="radio" name="pack" value="0"{if $order.pack_id eq 0} checked="checked"{/if} id="pack_type_0" onclick="selectPack(this)" />
+							</label>
+							<span class="intro"></span>
+						</div>
+						{foreach from=$pack_list item=pack name=pack_list}
+						{if $smarty.foreach.pack_list.index%3 eq 2}<hr class="clearer" />{/if}
+						<div class="option_item">
+							<label for="pack_type_{$pack.pack_id}">
+								<span class="name">{$pack.pack_name}</span>
+								{siy:get_extra_image prefix='pack_type_' fname=$pack.pack_id}
+								<input type="radio" name="pack" value="{$pack.pack_id}"{if $order.pack_id eq $pack.pack_id} checked="checked"{/if} id="pack_type_{$pack.pack_id}" onclick="selectPack(this)" />
+							</label>
+							<span class="intro">{$pack.pack_desc}</span>
+							<span class="info">
+								{if $pack.pack_fee neq 0}<em class="price">{$pack.format_pack_fee}</em>{else}<em class="price">{$lang.free}</em>{/if}
+								{if $pack.free_money neq 0}<span class="free">{$lang.free_pre}{$pack.format_free_money}{$lang.free_suf}</span>{/if}
+								{if $pack.pack_img}<a href="data/packimg/{$pack.pack_img}" class="zoom">{$lang.view}</a>{else}{$lang.no}{/if}
+							</span>
+						</div>
+						{/foreach}
+					</div>
+				</div>
+				{/if}
+				{if $card_list}
+				<div class="option_outer">
+					<div class="option_title"><h2>{$lang.goods_card}</h2><span class="extra"></span></div>
+					<div class="option_inner clearfix">
+						<div class="option_item">
+							<label for="card_type_0">
+								<span class="name">{$lang.no_card}</span>
+								{siy:get_extra_image prefix='card_type_' fname='0'}
+								<input type="radio" name="card" value="0"{if $order.card_id eq 0} checked="checked"{/if} id="card_type_0" onclick="selectCard(this)" />
+							</label>
+							<span class="intro"></span>
+						</div>
+						{foreach from=$card_list item=card name=card_list}
+						{if $smarty.foreach.card_list.index%3 eq 2}<hr class="clearer" />{/if}
+						<div class="option_item">
+							<label for="card_type_{$card.card_id}">
+								<span class="name">{$card.card_name}</span>
+								{siy:get_extra_image prefix='card_type_' fname=$card.card_id}
+								<input type="radio" name="card" value="{$card.card_id}"{if $order.card_id eq $card.card_id} checked="checked"{/if} id="card_type_{$card.card_id}" onclick="selectCard(this)" />
+							</label>
+							<span class="intro">{$card.card_desc}</span>
+							<span class="info">
+								{if $card.card_fee neq 0}<em class="price">{$card.format_card_fee}</em>{else}<em class="price">{$lang.free}</em>{/if}
+								{if $card.free_money neq 0}<span class="free">{$lang.free_pre}{$card.format_free_money}{$lang.free_suf}</span>{/if}
+								{if $card.card_img}<a href="data/cardimg/{$card.card_img}" class="zoom">{$lang.view}</a>{else}{$lang.no}{/if}
+							</span>
+						</div>
+						{/foreach}
+						<div class="card_message">
+							<h4>{$lang.bless_note}{$lang.colon}</h4>
+							<textarea name="card_message" cols="60" rows="5">{$order.card_message|escape}</textarea>
+						</div>
+					</div>
+				</div>
+				{/if}
+				<div class="option_outer postscript">
+					<div class="option_title"><h2>{$lang.order_postscript}</h2><span class="extra"></span></div>
+					<div class="option_inner">
+						<textarea name="postscript" cols="60" rows="5" id="postscript">{$order.postscript|escape}</textarea>
+					</div>
+				</div>
+				<div class="extra_options clearfix">
+					{if $allow_use_surplus}
+					<div class="item" id="use_surplus">
+						<h3>{$lang.use_surplus}</h3>
+						<div class="inner">
+							<input type="text" name="surplus" value="{$order.surplus|default:0}" id="ECS_SURPLUS" onblur="changeSurplus(this.value)"{if $disable_surplus} disabled="disabled"{/if} class="price_input"/>{$lang.your_surplus}&nbsp;<span class="price">{$your_surplus|default:0}</span><span id="ECS_SURPLUS_NOTICE"></span>
+						</div>
+					</div>
+					{/if}
+					{if $allow_use_integral}
+					<div class="item" id="use_integral">
+						<h3>{$lang.use_integral}</h3>
+						<div class="inner">
+							<input type="text" name="integral" value="{$order.integral|default:0}" id="ECS_INTEGRAL" onblur="changeIntegral(this.value)" class="price_input"/>{$lang.can_use_integral}<span class="price points">{$your_integral|default:0}{$points_name}</span>&nbsp;&nbsp;{$lang.noworder_can_integral}{$order_max_integral}{$points_name}<span id="ECS_INTEGRAL_NOTICE"></span>
+						</div>
+					</div>
+					{/if}
+					{if $allow_use_bonus}
+					<div class="item" id="use_bonus">
+						<h3>{$lang.use_bonus}</h3>
+						<div class="inner">
+							{if $bonus_list}
+								{$lang.select_bonus}
+								<select name="bonus" onchange="changeBonus(this.value)" id="ECS_BONUS">
+								<option value="0"{if $order.bonus_id eq 0} selected="selected"{/if}>{$lang.please_select}</option>
+								{foreach from=$bonus_list item=bonus}
+								<option value="{$bonus.bonus_id}"{if $order.bonus_id eq $bonus.bonus_id} selected="selected"{/if}>{$bonus.type_name}[{$bonus.bonus_money_formated}]</option>
+								{/foreach}
+								</select>
+								{$lang.or}{$lang.enter_bonus_sn}
+							{else}
+								{$lang.enter_bonus_sn}
+							{/if}
+								<input type="text" name="bonus_sn" value="{$order.bonus_sn}" class="text_input" id="bonus-sn"/>
+								<input type="button" name="validate_bonus" value="{$lang.validate_bonus}" class="btn_s3" onclick="validateBonus()"/>
+							</p>
+						</div>
+					</div>
+					{/if}
+					{if $inv_content_list}
+					<div class="item" id="invoice">
+						<h3>{$lang.invoice}</h3>
+						<div class="inner">
+							<input type="checkbox" name="need_inv" value="1"{if $order.need_inv} checked="checked"{/if} id="ECS_NEEDINV" onclick="changeNeedInv()"/>
+							{if $inv_type_list}
+							{$lang.invoice_type}<select name="inv_type"{if $order.need_inv neq 1} disabled="disabled"{/if} id="ECS_INVTYPE" onchange="changeNeedInv()">
+							{html_options options=$inv_type_list selected=$order.inv_type}</select>
+							{/if}
+							{$lang.invoice_title}
+							<input type="text" name="inv_payee" value="{$order.inv_payee}"{if !$order.need_inv} disabled="disabled"{/if} class="text_input" id="ECS_INVPAYEE" onblur="changeNeedInv()"/>
+							{$lang.invoice_content}
+							<select name="inv_content"{if $order.need_inv neq 1} disabled="disabled"{/if} id="ECS_INVCONTENT" onchange="changeNeedInv()">
+							{html_options values=$inv_content_list output=$inv_content_list selected=$order.inv_content}
+							</select>
+						</div>
+					</div>
+					{/if}
+					{if $how_oos_list}
+					<div class="item last" id="booking_process">
+						<h3>{$lang.booking_process}</h3>
+						<div class="inner">
+							{foreach from=$how_oos_list key=how_oos_id item=how_oos_name}
+							<label><input type="radio" name="how_oos" value="{$how_oos_id}"{if $order.how_oos eq $how_oos_id} checked="checked"{/if} onclick="changeOOS(this)"/>
+							{$how_oos_name}</label>
+							{/foreach}
+						</div>
+					</div>
+					{/if}
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

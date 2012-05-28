@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	<div class="activity_list box full_box">
+		<div class="hd"><h3>{$lang.favourable}</h3><div class="extra"></div></div>
+		<div class="bd">
+			{foreach from=$list item=val name=list}
+			<div class="item{if $smarty.foreach.list.first} first{/if}" id="{$val.act_id}">
+				<h2 class="name">{$val.act_name}</h2>
+				<dl class="table">
+					<dt>{$lang.label_start_time}</dt><dd>{$val.start_time}</dd>
+					<dt>{$lang.label_end_time}</dt><dd class="even">{$val.end_time}</dd>
+					<dt>{$lang.label_max_amount}</dt><dd class="price">{if $val.max_amount > 0}{$val.max_amount}{else}{$lang.unlimited}{/if}</dd>
+					<dt>{$lang.label_min_amount}</dt><dd class="price even">{$val.min_amount}</dd>
+					<dt>{$lang.label_user_rank}</dt><dd class="user_rank">{foreach from=$val.user_rank item=user}<em>{$user}</em>{/foreach}</dd>
+					<dt>{$lang.label_act_range}</dt>
+					<dd class="even">
+						{$val.act_range}{if $val.act_range ne $lang.far_all}
+						{foreach from=$val.act_range_ext item=ext}
+						<a href="{$val.program}{$ext.id}" taget="_blank">{$ext.name}</a>
+						{/foreach}
+						{/if}
+					</dd>
+					<dt>{$lang.label_act_type}</dt><dd>{$val.act_type}{if $val.act_type ne $lang.fat_goods}{$val.act_type_ext}{/if}</dd>
+					{if $val.gift}
+					<dt>{$lang.goods_list}{$lang.colon}</dt>
+					<dd class="even">
+						<div class="goods_list display_text">
+						<ul class="clearfix">
+							{foreach from=$val.gift item=goods name=val_gift}
+							<li{if $smarty.foreach.val_gift.first} class="first"{/if}>
+								<span class="photo">
+									<a href="{siy:build_uri app='goods' gid=$goods.id append=$goods.name}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a>
+								</span>
+								<span class="info">
+									<a href="{siy:build_uri app='goods' gid=$goods.id append=$goods.name}" title="{$goods.name|escape:html}" class="name">{$goods.name}</a>
+									<em class="price">{if $goods.price > 0}{$goods.price}{$lang.unit_yuan}{else}{$lang.for_free}{/if}</em>
+								</span>
+								<span class="action">
+									<a href="{siy:build_uri app='goods' gid=$goods.id append=$goods.name}" class="button"><span>{$lang.btn_detail}</span></a>
+								</span>
+							</li>
+							{/foreach}
+						</ul>
+						</div>
+					</dd>
+					{/if}
+				</dl>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,133 @@
+ul, li{margin:0; padding:0;}
+ul, li {list-style:none;}
+.log-width ul{
+	width: 100%;
+}
+.log-width li{
+	 float: left;
+    margin-bottom: 5px;
+    margin-left: 0;
+    overflow: hidden;
+}
+.log-width li a{
+	float: left;
+	display: block;
+	width: 16px;
+	height: 16px;
+	overflow: hidden;
+	background: url(log-ico.png) left top no-repeat;
+}
+.log-width li a.twitter{
+	background-position: left -126px;
+}
+.log-width li a.facebook{
+	background-position: left -144px;
+}
+.log-width li a.souhu{
+	background-position: left -90px;
+}
+.log-width li a.go163{
+	background-position: left -108px;
+}
+.log-width li a.tx{
+	background-position: left -18px;
+}
+.log-width li a.google{
+	background-position: left -162px;
+}
+.log-width li a.msn{
+	background-position: left -180px;
+}
+.log-width li a.tianya{
+	background-position: left -270px;
+}
+.log-width li a.douban{
+	background-position: left -72px;
+}
+.log-width li a.yahoo{
+	background-position: left -198px;
+}
+.log-width li a.baidu{
+	background-position: left -234px;
+}
+.log-width li a.shengda{
+	background-position: left -216px;
+}
+.log-width li a.kaixin{
+	background-position: left -54px;
+}
+.log-width li a.renren{
+	background-position: left -36px;
+}
+.log-width li a.go360{
+	background-position: left -252px;
+}
+.log-width li a.weibo{
+	background-position: left -306px;
+}
+.log-width li a.qq{
+	background-position: left -289px;
+}
+.log-width li a.alipay{
+	background-position: left -324px;
+}
+.log-width li a.taobao{
+	background-position: left -342px;
+}
+.log-width li a.twitter:hover{
+	background-position: -24px -126px;
+}
+.log-width li a.facebook:hover{
+	background-position: -24px -144px;
+}
+.log-width li a.souhu:hover{
+	background-position: -24px -90px;
+}
+.log-width li a.go163:hover{
+	background-position: -24px -108px;
+}
+.log-width li a.tx:hover{
+	background-position: -24px -18px;
+}
+.log-width li a.google:hover{
+	background-position: -24px -162px;
+}
+.log-width li a.msn:hover{
+	background-position: -24px -180px;
+}
+.log-width li a.tianya:hover{
+	background-position: -24px -270px;
+}
+.log-width li a.douban:hover{
+	background-position: -24px -72px;
+}
+.log-width li a.yahoo:hover{
+	background-position: -24px -198px;
+}
+.log-width li a.baidu:hover{
+	background-position: -24px -234px;
+}
+.log-width li a.shengda:hover{
+	background-position: -24px -216px;
+}
+.log-width li a.kaixin:hover{
+	background-position: -24px -54px;
+}
+.log-width li a.renren:hover{
+	background-position: -24px -36px;
+}
+.log-width li a.go360:hover{
+	background-position: -24px -252px;
+}
+.log-width li a.weibo:hover{
+	background-position: -24px -306px;
+}
+.log-width li a.qq:hover{
+	background-position: -24px -289px;
+}
+.log-width li a.alipay:hover{
+	background-position: -24px -324px;
+}
+.log-width li a.taobao:hover{
+	background-position: -24px -342px;
+}

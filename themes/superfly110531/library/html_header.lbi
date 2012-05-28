@@ -1,0 +1,9 @@
+{$render.before_html_header}
+<link type="image/x-icon" href="{$option.static_path}static/img/favicon.ico" rel="shortcut icon" />
+<link type="text/css" href="{$option.static_path}static/css/style.css" rel="stylesheet" />
+{if $cat_style}<link type="text/css" href="{$cat_style}" rel="stylesheet" />{/if}
+<!--[if lt IE 8]><link href="{$option.static_path}static/css/ie.css" rel="stylesheet" type="text/css"/><![endif]-->
+{if $pname eq 'index' or $pname eq 'category' or $pname eq 'article_cat' or $pname eq 'auction_cat' or $pname eq 'brand' or $pname eq 'exchange' or $pname eq 'group_buy' or $pname eq 'package' or $pname eq 'snatch'}<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}"/>{/if}
+{if $auto_redirect}<meta http-equiv="refresh" content="3;url={$message.back_url}" />{/if}
+{if $option.auto_resize}<script type="text/javascript">if(screen.width>=1220){document.getElementsByTagName('html')[0].className='wide';}</script>{/if}
+{$render.after_html_header}

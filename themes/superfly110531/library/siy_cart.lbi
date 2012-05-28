@@ -1,0 +1,39 @@
+<p class="cart_info">{insert name='cart_info'}</p>
+<div class="list_wrapper">
+<div class="list">
+	<em class="list_arrow">&uarr;</em>
+	<div class="loader">&nbsp;</div>
+	{if $goods_list}
+	<ul>
+		{foreach from=$goods_list item=goods name=goods_list}
+		<li class="clearfix{if $smarty.foreach.goods_list.first} first{/if}">
+			<span class="info">
+				{if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+				<a href="{siy:goods_info id=$goods.goods_id type='url'}" class="photo" rel="external"><img src="{$option.static_path}{$goods.goods_thumb}"/></a>
+				<a href="{siy:goods_info id=$goods.goods_id type='url'}" class="name" rel="external">{$goods.goods_name}</a>
+				<span class="extra_info">
+					{if $goods.goods_attr}{$goods.goods_attr}{/if}
+					{if $goods.is_shipping}<em class="carriage_free">{$lang.carriage_free}</em>{/if}
+					{if $goods.parent_id gt 0}<em class="accessories">{$lang.accessories}</em>{/if}
+					{if $goods.is_gift gt 0}<em class="largess">{$lang.largess}</em>{/if}
+				</span>
+				{elseif $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'}
+				<span class="name package_name">{$goods.goods_name}</span>
+				<span class="package_goods_list">{foreach from=$goods.package_goods_list item=package_goods_list name=package_goods_list}<em>{$package_goods_list.goods_name}</em>{/foreach}</span>
+				{else}
+				{$goods.goods_name}
+				{/if}
+			</span>
+			<span class="price">{$goods.goods_price} &times; {$goods.goods_number}</span>
+			<span class="action"><a href="javascript:cartDrop({$goods.rec_id});">{$lang.drop}</a></span>
+		</li>
+		{/foreach}
+	</ul>
+	<p class="total">{$shopping_money}</p>
+	<p class="next"><a href="flow.php?step=cart" class="button brighter_button"><span>{$lang.to_cart}</span></a></p>
+	{else}
+	<p class="cart_empty">{$lang.cart_empty}</p>
+	{/if}
+	<a href="javascript:closeCart();" class="close button"><span>{$lang.close}</span></a>
+</div>
+</div>

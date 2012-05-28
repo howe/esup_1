@@ -1,0 +1,6 @@
+<div class="bought_box box" id="bought">
+	<div class="hd"><h3>{$lang.bought_notes}</h3><div class="extra">{$lang.later_bought_amounts}<em>{siy:bought_count id=$id}</em></div></div>
+	<div class="bd">
+		<div id="bought_wrap">{insert name='bought_notes' id=$id}</div>
+	</div>
+</div>

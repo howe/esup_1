@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{if $action eq 'default'}{$lang.dashboard}
+{elseif $action eq 'profile'}{$lang.label_profile}
+{elseif $action eq 'order_list' or $action eq 'order_detail'}{$lang.label_order}
+{elseif $action eq 'address_list'}{$lang.label_address}
+{elseif $action eq 'collection_list'}{$lang.label_collection}
+{elseif $action eq 'message_list'}{$lang.label_message}
+{elseif $action eq 'tag_list'}{$lang.label_tag}
+{elseif $action eq 'booking_list'}{$lang.label_booking}
+{elseif $action eq 'add_booking'}{$lang.label_booking}
+{elseif $action eq 'bonus'}{$lang.label_bonus}
+{elseif $action eq 'affiliate'}{$lang.label_affiliate}
+{elseif $action eq 'comment_list'}{$lang.label_comment}
+{elseif $action eq 'track_packages'}{$lang.label_track_packages}
+{elseif $action eq 'account_log' or $action eq 'account_deposit' or $action eq 'account_raply' or $action eq 'account_detail' or $action eq 'act_account' or $action eq 'pay'}{$lang.label_user_surplus}
+{elseif $action eq 'transform_points'}{$lang.label_transform_points}{/if} - {$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}" class="user_cp">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	<div class="col_main">
+	{$render.before_col_main}
+		<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		{if $action eq 'default'}{include file='library/user_default.lbi'}{/if}
+		{if $action eq 'message_list'}{include file='library/user_message_list.lbi'}{/if}
+		{if $action eq 'comment_list'}{include file='library/user_comment_list.lbi'}{/if}
+		{if $action eq 'tag_list'}{include file='library/user_tag_list.lbi'}{/if}
+		{if $action eq 'collection_list'}{include file='library/user_collection_list.lbi'}{/if}
+		{if $action eq 'booking_list'}{include file='library/user_booking_list.lbi'}{/if}
+		{if $action eq 'add_booking'}{include file='library/user_add_booking.lbi'}{/if}
+		{if $affiliate.on eq 1}{if $action eq 'affiliate'}{include file='library/user_affiliate.lbi'}{/if}{/if}
+		<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+		<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+		{include file='library/user_nav.lbi'}
+		<!-- TemplateBeginEditable name="侧栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+<script type="text/javascript" src="{$option.static_path}static/js/user.js"></script>
+</body>
+</html>

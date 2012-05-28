@@ -1,0 +1,72 @@
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs">
+		<a href="user.php?act=message_list" id="tab_message_list" class="current"><span>{$lang.label_message}</span></a>
+		<a href="user.php?act=comment_list" id="tab_comment_list"><span>{$lang.label_comment}</span></a>
+	</p>
+	<div class="extra"></div>
+</div>
+<div class="message_list box">
+	<div class="hd"><h3>{$lang.label_message}</h3><div class="extra"></div></div>
+	<div class="bd">
+		{if $message_list}
+		<ul class="comment_list clearfix">
+			{foreach from=$message_list item=message key=key name=message_list}
+			<li class="{cycle values="odd,even"}{if $smarty.foreach.message_list.first} first{/if}">
+				<div class="info">
+					<span class="name">{$message.msg_time}</span>
+					<span class="drop"><a href="user.php?act=del_msg&amp;id={$key}&amp;order_id={$message.order_id}" title="{$lang.drop}" onclick="if (!confirm('{$lang.confirm_remove_msg}')) return false;" class="button"><span>{$lang.drop}</span></a></span>
+				</div>
+				<div class="talk">
+					<p class="title"><span class="type">[{$message.msg_type}]</span>{$message.msg_title}</p>
+					<p class="text">{$message.msg_content}{if $message.message_img}<a href="data/feedbackimg/{$message.message_img}" target="_bank">{$lang.view_upload_file}</a>{/if}</p>
+					{if $message.re_msg_content}
+					<blockquote class="reply"><span class="name">{$lang.shopman_reply}</span><span class="text">{$message.re_msg_content}</span><span class="time">{$message.re_msg_time}</span></blockquote>
+					{/if}
+				</div>
+			</li>
+			{/foreach}
+		</ul>
+		{include file='library/pages.lbi'}
+		{else}
+		<p class="empty">{$lang.message_list_empty}</p>
+		{/if}
+		<h2 class="title"><span>{$lang.message_form_title}</span><em class="extra"></em></h2>
+		<form action="user.php" method="post" enctype="multipart/form-data" name="formMsg" onSubmit="return submitMsg()" class="form">
+			<fieldset>
+				{if $order_info}
+				<p class="label"><b>{$lang.message_type}</b>
+					<em><a href ="{$order_info.url}">{$order_info.order_sn}</a></em>
+					<input type="hidden" name="msg_type" value="5"/>
+					<input type="hidden" name="order_id" value="{$order_info.order_id}"/>
+				</p>
+				{else}
+				<fieldset class="radio_wrap label"><b>{$lang.message_type}</b>
+					<fieldset>
+					<label for="msg_type0"><input type="radio" name="msg_type" value="0" checked="checked" tabindex="1" class="radio" id="msg_type0"/>{$lang.type[0]}</label>
+					<label for="msg_type1"><input type="radio" name="msg_type" value="1" tabindex="3" class="radio" id="msg_type1"/>{$lang.type[1]}</label>
+					<label for="msg_type2"><input type="radio" name="msg_type" value="2" tabindex="4" class="radio" id="msg_type2"/>{$lang.type[2]}</label>
+					<label for="msg_type3"><input type="radio" name="msg_type" value="3" tabindex="5" class="radio" id="msg_type3"/>{$lang.type[3]}</label>
+					<label for="msg_type4"><input type="radio" name="msg_type" value="4" tabindex="6" class="radio" id="msg_type4"/>{$lang.type[4]}</label>
+					</fieldset>
+				</fieldset>
+				{/if}
+				<label for="msg_title"><b><span class="req">*</span>{$lang.message_title}</b>
+					<input type="text" name="msg_title" size="50" tabindex="7" class="input" id="msg_title"/>
+				</label>
+				<label for="msg_content"><b><span class="req">*</span>{$lang.message_content}</b>
+					<textarea name="msg_content" rows="6" cols="20" tabindex="7" id="msg_content"></textarea>
+				</label>
+				<label for="message_img"><b>{$lang.upload_img}</b>
+					<input type="file" name="message_img" class="input" id="message_img"/>
+					<span class="directions">{$lang.img_type_list}</span>
+				</label>
+				<div class="submit_wrap">
+					<input type="submit" value="{$lang.submit_message}" tabindex="9" class="submit btn_s3_b"/>
+					<input type="hidden" name="act" value="act_add_message"/>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</div>
+</div>

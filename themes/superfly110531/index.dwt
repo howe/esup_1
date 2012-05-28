@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}"{if $option.three_column} class="three_col"{/if}>
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	<div class="col_main">
+	{$render.before_col_main}
+	{if $shop_notice}<div class="shop_notice notice_box">{$shop_notice}</div>{/if}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+	{include file='library/index_ad.lbi'}
+	<!-- TemplateBeginEditable name="主栏" -->
+		<!-- #BeginLibraryItem "/library/recommend_promotion.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/recommend_new.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/recommend_best.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏" -->
+		<!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/order_query.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/invoice_query.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/vote_list.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/ad_position.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+	{if $option.three_column}
+	<div class="col_extra">
+	{$render.before_col_extra}
+	<!-- TemplateBeginEditable name="侧栏二上方" --><!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏二" -->
+		<!-- #BeginLibraryItem "/library/cat_articles.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/ad_position.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/brands.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/email_list.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏二下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_extra}
+	</div>
+	{/if}
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

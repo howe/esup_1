@@ -1,0 +1,33 @@
+
+.compare_box .arrows .left, .compare_box .arrows .right{background-image:('../img/black/scroll_btn.gif');}
+.header_bar{background-color:#373737;background-image:url('../img/black/header_bar.gif');}
+.header_bar_left, .header_bar_right{background-image:url('../img/black/header_bar.gif');}
+
+.nav_wrapper{background-color:#ececec;background-image:url('../img/black/nav_bg.gif');}
+.nav{background-image:url('../img/black/nav_bg.gif');}
+.nav ul.level_1{background-image:url('../img/black/nav_bg.gif');}
+.nav a.level_1{background-image:url('../img/black/nav_bg.gif');text-shadow:0 0 0, 0 1px 0 #fff8ec;}
+
+.nav li.current a.level_1{background-color:#373737;background-image:url('../img/black/nav_active.gif');text-shadow:0 0 0, 0 1px 0 #050505;}
+.nav li.current a.level_1 strong{background-image:url('../img/black/nav_active.gif');}
+.nav li.parent a.level_1 span{background-image:url('../img/black/nav_arrow.gif');}
+
+.bright_search form{border:1px solid #050505;}
+.bright_search .submit{background-color:#ff8b20;background-image:url('../img/black/search_bg.gif');}
+.bright_search .advanced_search a{color:#E2E2E2;text-shadow:0 0 0, 0 1px 0 #373737;}
+
+.cart{background-color:#e2e2e2;background-image:url('../img/black/cart_bg.gif');}
+.cart .cart_info{background-image:url('../img/black/cart_bg.gif');}
+.cart .cart_info a{background-image:url('../img/black/cart_bg.gif');text-shadow:0 0 0, 0 1px 0 #fef1dd;}
+.all_cat_wrapper .all_cat{background-image:url('../img/black/all_cat.gif');}
+.col_main .extra_box .hd h3{background-image:url('../img/black/box_title_extra.gif');text-shadow:0 0 0, 0 1px 0 #373737;}
+.tab_wrapper{border-bottom-color:#080808;}
+.tab_wrapper .tabs a{background-color:#e4e4e4;background-image:url('../img/black/box_title_extra.gif');text-shadow:0 0 0, 0 1px 0 #fff;}
+.tab_wrapper .tabs a span{background-image:url('../img/black/box_title_extra.gif');}
+.tab_wrapper .tabs a sup{background-image:url('../img/black/tab_amout.gif');}
+.tab_wrapper .tabs a sup em{background-image:url('../img/black/tab_amout.gif');}
+.tab_wrapper .tabs a.current{background-color:#373737;text-shadow:0 0 0pt, 0 1px 0 #373737;}
+.tab_wrapper .tabs .arrow_up, .tab_wrapper .tabs .arrow_down{background-image:url('../img/black/tab_arrow.gif');}
+
+.goods_list .controls .prev, .goods_list .controls .next{background-image:url('../img/black/scroll_btn.gif');}
+.col_main .extra_box .hd{border-bottom-color:#080808;}

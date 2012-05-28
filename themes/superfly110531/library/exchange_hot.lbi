@@ -1,0 +1,20 @@
+{if $hot_goods}
+<div class="hot_goods box">
+	<div class="hd"><h3>{$lang.top_exchange}</h3><div class="extra"></div></div>
+	<div class="bd goods_list">
+		<ul>
+			{foreach from=$hot_goods item=goods name=hot_goods}
+			<li{if $smarty.foreach.hot_goods.first} class="first"{/if} data="id:'{$goods.goods_id}'">
+				<span class="photo">
+					<a href="{$goods.url}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$goods.url}" title="{$goods.name|escape:html}" class="name">{$goods.short_style_name}</a>
+					<em class="price discount"><span>{$lang.exchange_integral}</span>{$goods.exchange_integral}</em>
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}

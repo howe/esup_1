@@ -1,0 +1,33 @@
+{if $orders}
+<table class="data_table">
+	<colgroup>
+		<col width="120"/>
+		<col width="120"/>
+		<col width="80"/>
+		<col width="200"/>
+		<col width="100"/>
+	</colgroup>
+	<thead>
+		<tr>
+			<th>{$lang.order_number}</th>
+			<th>{$lang.order_addtime}</th>
+			<th>{$lang.order_money}</th>
+			<th class="order_status">{$lang.order_status}</th>
+			<th class="last handle">{$lang.handle}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach from=$orders item='item' name='orders'}
+		<tr class="{cycle values="odd,even"}{if $smarty.foreach.orders.last} last{/if}">
+			<td><a href="user.php?act=order_detail&order_id={$item.order_id}" class="order_id">{$item.order_sn}</a></td>
+			<td>{$item.order_time}</td>
+			<td><em class="price">{$item.total_fee}</em></td>
+			<td class="order_status">{$item.order_status}</td>
+			<td class="last handler">{$item.handler}</td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+{else}
+<p class="empty">{$lang.order_empty}</p>
+{/if}

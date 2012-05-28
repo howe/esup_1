@@ -1,0 +1,312 @@
+<div class="order_detail box thin_box">
+	<div class="hd"><h3></h3><div class="extra"></div></div>
+	<div class="bd">
+		<h2 class="title first_title"><span>{$lang.order_status}</span><em class="extra"></em></h2>
+		<table class="data_table">
+			<colgroup>
+				<col width="100"/>
+				<col width="700"/>
+			</colgroup>
+			<tbody>
+				<tr class="odd">
+					<th>{$lang.detail_order_sn}{$lang.colon}</th>
+					<td class="last"><span class="order_id">{$order.order_sn}</span>
+					{if $order.extension_code eq "group_buy"}<a href="./group_buy.php?act=view&id={$order.extension_id}" class="status">{$lang.order_is_group_buy}</a>
+					{elseif $order.extension_code eq "exchange_goods"}<a href="./exchange.php?act=view&id={$order.extension_id}" class="status">{$lang.order_is_exchange}</a>
+					{/if}<a href="user.php?act=message_list&order_id={$order.order_id}" class="view_message button"><span>{$lang.business_message}</span></a></td>
+				</tr>
+				<tr class="even">
+					<th>{$lang.detail_order_status}{$lang.colon}</th>
+					<td class="last"><span class="status">{$order.order_status}</span><span class="time">{$order.confirm_time}</span></td>
+				</tr>
+				<tr class="odd">
+					<th>{$lang.detail_pay_status}{$lang.colon}</th>
+					<td class="last"><span class="status">{$order.pay_status}</span>{if $order.order_amount gt 0}{$order.pay_online}{/if}<span class="time">{$order.pay_time}</span></td>
+				</tr>
+				<tr class="even{if !$order.invoice_no and !$order.to_buyer and !$virtual_card} last{/if}">
+					<th>{$lang.detail_shipping_status}{$lang.colon}</th>
+					<td class="last"><span class="status">{$order.shipping_status}</span><span>{$order.shipping_time}</span></td>
+				</tr>
+				{if $order.invoice_no}
+				<tr class="odd{if !$order.to_buyer and !$virtual_card} last{/if}">
+					<th>{$lang.consignment}{$lang.colon}</th>
+					<td class="last invoice_no">{$order.invoice_no}</td>
+				</tr>
+				{/if}
+				{if $order.to_buyer}
+				<tr class="{if $order.invoice_no}even{else}odd{/if}{if !$virtual_card} last{/if}">
+					<th>{$lang.detail_to_buyer}{$lang.colon}</th>
+					<td class="last">{$order.to_buyer}</td>
+				</tr>
+				{/if}
+				{if $virtual_card}
+				<tr class="odd last">
+					<th>{$lang.virtual_card_info}{$lang.colon}</th>
+					<td class="last">
+						<ul class="virtual_card clearfix">
+							{foreach from=$virtual_card item=vgoods name=virtual_card}
+							{foreach from=$vgoods.info item=card name=vgoods_info}
+							<li>
+								<span class="type">{$vgoods.goods_name}</span>
+								<span class="id"><strong>{$lang.card_sn}{$lang.colon}</strong>{$card.card_sn}</em></span>
+								<span class="serial_code"><strong>{$lang.card_password}{$lang.colon}</strong><em>{$card.card_password}</em></span>
+								<span class="serial_code"><strong>{$lang.card_url}{$lang.colon}</strong><em><a target="_blank" title="{$lang.card_url}" href="{$card.card_url}">{$card.card_url}</a></em></span>
+								<span class="expire_date"><strong>{$lang.end_date}{$lang.colon}</strong><em>{$card.end_date}</em></span>
+							</li>
+							{/foreach}
+							{/foreach}
+						</ul>
+					</td>
+				</tr>
+				{/if}
+			</tbody>
+		</table>
+		<h2 class="title"><span>{$lang.goods_list}</span><em class="extra">{if $allow_to_cart}<a href="javascript:returnToCart({$order.order_id});">{$lang.return_to_cart}</a>{/if}</em></h2>
+		<table class="data_table order_goods_list">
+			<colgroup>
+				<col width="330"/>
+				<col width="80"/>
+				<col width="50"/>
+                <col width="80"/>
+				<col width="60"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>{$lang.goods_name}</th>
+					<th>{$lang.goods_price}{if $order.extension_code eq "group_buy"}{$lang.gb_deposit}{/if}</th>
+					<th>{$lang.number}</th>
+                    <th>{$lang.order_by_danjia}</th>
+					<th class="last">{$lang.subtotal}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$goods_list item=goods name=goods_list}
+				<tr class="{cycle values="odd,even"}{if $smarty.foreach.goods_list.last} last{/if}">
+					<td>
+						{if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+							<a href="{siy:goods_info id=$goods.goods_id type='url'}" class="photo" rel="external"><img src="{$option.static_path}{$goods.goods_thumb}{siy:goods_info id=$goods.goods_id type='goods_thumb'}"/></a>
+							<a href="{siy:goods_info id=$goods.goods_id type='url'}" class="name" rel="external">{$goods.goods_name}</a><br/>
+							{if $goods.goods_type eq "10" or $goods.goods_type eq "13"}{$lang.list_qu}<font color="#FF3333">{if $goods.yxm}{$goods.yxm}{/if}{if $goods.yxqm}/{$goods.yxqm}{/if}{if $goods.yxfm}/{$goods.yxfm}{/if}{if $goods.zhenying}/<font color="#0033FF">{$goods.zhenying}</font>{/if}</font>&nbsp;&nbsp;{/if}
+							{$lang.list_wplx}
+							<font color="#0066FF">
+                            {if $goods.goods_type eq "10"}
+                                {$lang.type_yxb}
+                            {/if}
+                            {if $goods.goods_type eq "11"}
+                                {$lang.type_dk}
+                            {/if}
+                            {if $goods.goods_type eq "12"}
+                                {$lang.type_czk}
+                            {/if}
+                            {if $goods.goods_type eq "13"}
+                                {$lang.type_yxzb}
+                            {/if}
+							</font>
+							<span class="extra_info">
+								{if $goods.goods_attr}{$goods.goods_attr}{/if}
+								{if $goods.is_shipping}<em class="carriage_free">{$lang.carriage_free}</em>{/if}
+								{if $goods.parent_id gt 0}<em class="accessories">{$lang.accessories}</em>{/if}
+								{if $goods.is_gift gt 0}<em class="largess">{$lang.largess}</em>{/if}
+							</span>
+						{elseif $goods.goods_id gt 0 && $goods.extension_code eq 'package_buy'}
+							<span class="name">{$goods.goods_name}</span>
+							<span class="package_goods_list">{foreach from=$goods.package_goods_list item=package_goods_list name=package_goods_list}<em>{$package_goods_list.goods_name}</em>{/foreach}</span>
+						{else}
+							{$goods.goods_name}
+						{/if}
+					</td>
+					<td class="price">{$goods.goods_price}</td>
+					<td>{$goods.goods_number}</td>
+                    <td>{if $goods.goods_type eq "10"}{$goods.danjia}&nbsp;<font color="#FF3333" title="{$goods.yxsl} {$goods.danwei}">{$lang.huobi_rmb}/{$goods.danwei}</font>{/if}</td>
+					<td class="last price">{$goods.subtotal}</td>
+				</tr>
+				{/foreach}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5" class="last">
+						<p>{$lang.goods_all_price}
+						{if $order.extension_code eq "group_buy"}{$lang.gb_deposit}{/if}{$lang.colon}<span class="price">{$order.formated_goods_amount}</span>
+						{if $order.discount gt 0}
+						- {$lang.discount}{$lang.colon}<span class="price">{$order.formated_discount}</span>
+						{/if}
+						{if $order.tax gt 0}
+						+ {$lang.tax}{$lang.colon}<span class="price">{$order.formated_tax}</span>
+						{/if}
+						{if $order.shipping_fee > 0}
+						+ {$lang.shipping_fee}{$lang.colon}<span class="price">{$order.formated_shipping_fee}</span>
+						{/if}
+						{if $order.insure_fee > 0}
+						+ {$lang.insure_fee}{$lang.colon}<span class="price">{$order.formated_insure_fee}</span>
+						{/if}
+						{if $order.pay_fee > 0}
+						+ {$lang.pay_fee}{$lang.colon}<span class="price">{$order.formated_pay_fee}</span>
+						{/if}
+						{if $order.pack_fee > 0}
+						+ {$lang.pack_fee}{$lang.colon}<span class="price">{$order.formated_pack_fee}</span>
+						{/if}
+						{if $order.card_fee > 0}
+						+ {$lang.card_fee}{$lang.colon}<span class="price">{$order.formated_card_fee}</span>
+						{/if}
+						{if $order.money_paid > 0} - {$lang.order_money_paid}{$lang.colon}<span class="price">{$order.formated_money_paid}</span>{/if}
+						{if $order.surplus > 0} - {$lang.use_surplus}{$lang.colon}<span class="price">{$order.formated_surplus}</span>{/if}
+						{if $order.integral_money > 0} - {$lang.use_integral}{$lang.colon}<span class="price">{$order.formated_integral_money}</span>{/if}
+						{if $order.bonus > 0} - {$lang.use_bonus}{$lang.colon}<span class="price">{$order.formated_bonus}</span>{/if}</p>
+						<p>{$lang.order_amount}{$lang.colon}<span class="price">{$order.formated_order_amount}</span>{if $order.extension_code eq "group_buy"}{$lang.notice_gb_order_amount}{/if}</p>
+						{if $allow_edit_surplus}
+						<p class="use_surplus">
+							<form action="user.php" method="post" name="formFee" id="formFee">{$lang.use_more_surplus}{$lang.colon}
+								<input type="text" name="surplus" size="8" value="0" class="price_input" />{$max_surplus}
+								<input type="submit" name="Submit" value="{$lang.button_submit}" class="btn_s1" />
+								<input type="hidden" name="act" value="act_edit_surplus"/>
+								<input type="hidden" name="order_id" value="{$smarty.get.order_id}"/>
+							</form>
+						</p>
+						{/if}
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+		<h2 class="title"><span>{$lang.consignee_info}</span><em class="extra"></em></h2>
+		{if $order.allow_update_address gt 0}
+		<form action="user.php" method="post" name="formAddress">
+			<table class="data_table">
+				<colgroup>
+					<col width="100"/>
+					<col width="250"/>
+					<col width="100"/>
+					<col width="250"/>
+				</colgroup>
+				<tbody>
+					<tr class="odd" style="display:none;">
+						<th>{$lang.consignee_name}{$lang.colon}</th>
+						<td><input type="text" name="consignee" value="{$order.consignee|escape}" size="10"></td>
+						<th>{$lang.email_address}{$lang.colon}</th>
+						<td class="last"><input type="text" name="email" value="{$order.email|escape}" size="22"/></td>
+					</tr>
+					{if $order.exist_real_goods}
+					<tr class="even" style="display:none;">
+						<th>{$lang.detailed_address}{$lang.colon}</th>
+						<td><input type="text" name="address" value="{$order.address|escape}" size="30"/></td>
+						<th>{$lang.postalcode}{$lang.colon}</th>
+						<td class="last"><input type="text"name="zipcode" value="{$order.zipcode|escape}" size="10"/></td>
+					</tr>
+					{/if}
+					<tr class="{if $order.exist_real_goods}odd{else}even last{/if}">
+						<th>{$lang.phone}{$lang.colon}</th>
+						<td><input type="text" name="tel" value="{$order.tel|escape}" size="18"/></td>
+						<th>{$lang.backup_phone}{$lang.colon}</th>
+						<td class="last"><input type="text" name="mobile" value="{$order.mobile|escape}" size="18"/></td>
+					</tr>
+					{if $order.exist_real_goods}
+					<tr class="even last" style="display:none;">
+						<th>{$lang.sign_building}{$lang.colon}</th>
+						<td><input type="text" name="sign_building" value="{$order.sign_building|escape}" size="25"/></td>
+						<th>{$lang.deliver_goods_time}{$lang.colon}</th>
+						<td class="last"><input type="text" name="best_time" value="{$order.best_time|escape}" size="25"/></td>
+					</tr>
+					{/if}
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4" class="center last">
+							<input type="submit" value="{$lang.update_address}" class="btn_s4" />
+							<input type="hidden" name="act" value="save_order_address"/>
+							<input type="hidden" name="order_id" value="{$order.order_id}"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+		{else}
+		<table class="data_table">
+			<colgroup>
+				<col width="100"/>
+				<col width="250"/>
+				<col width="100"/>
+				<col width="250"/>
+			</colgroup>
+			<tbody>
+				{if $order.exist_real_goods}
+				<tr class="even" style="display:none">
+					<th>{$lang.detailed_address}{$lang.colon}</th>
+					<td colspan="3" class="last">{$order.address}{if $order.zipcode}[{$lang.postalcode}{$lang.colon}{$order.zipcode}]{/if}</td>
+				</tr>
+				{/if}
+                {if $order.exist_real_goods}
+                <tr class="odd">
+					<th>{$lang.game_nickname}{$lang.colon}</th>
+					<td>{$order.game_nickname}</td>
+					<th>{$lang.game_level}{$lang.colon}</th>
+					<td class="last">{$order.game_level}</td>
+				</tr>
+                <tr class="odd">
+					<th>{$lang.game_jueseid}{$lang.colon}</th>
+					<td>{$order.game_jueseid}</td>
+					<th>{$lang.game_zhiye}{$lang.colon}</th>
+					<td class="last">{$order.game_zhiye}</td>
+				</tr>
+				{/if}
+                <tr class="odd">
+					<th>{$lang.consignee_name}{$lang.colon}</th>
+					<td>{$order.consignee}</td>
+					<th>{$lang.email_address}{$lang.colon}</th>
+					<td class="last">{$order.email}</td>
+				</tr>
+				<tr class="odd">
+					<th>{$lang.mobile}{$lang.colon}</th>
+					<td>{$order.tel}</td>
+					<th>{$lang.backup_phone}{$lang.colon}</th>
+					<td class="last">{$order.mobile}</td>
+				</tr>
+				{if $order.exist_real_goods}
+				<tr class="even last" style="display:none">
+					<th>{$lang.sign_building}{$lang.colon}</th>
+					<td>{$order.sign_building}</td>
+					<th>{$lang.deliver_goods_time}{$lang.colon}</th>
+					<td class="last">{$order.best_time}</td>
+				</tr>
+				{/if}
+			</tbody>
+		</table>
+		{/if}
+		<h2 class="title"><span>{$lang.pay}</span><em class="extra"></em></h2>
+		<div class="notice_box">
+			<p>{$lang.select_payment}{$lang.colon}{$order.pay_name}</p>
+			<p>{$lang.order_amount}{$lang.colon}<span class="price">{$order.formated_order_amount}</span></p>
+			<p>{$order.pay_desc}</p>
+		</div>
+		{if $payment_list}
+		<div class="other_payment">
+			<form name="payment" method="post" action="user.php">
+				{$lang.change_payment}{$lang.colon}
+				<select name="pay_id">
+				{foreach from=$payment_list item=payment}
+				<option value="{$payment.pay_id}">
+				{$payment.pay_name}({$lang.pay_fee}:{$payment.format_pay_fee})
+				</option>
+				{/foreach}
+				</select>
+				<input type="submit" name="Submit" value="{$lang.button_submit}"/>
+				<input type="hidden" name="act" value="act_edit_payment"/>
+				<input type="hidden" name="order_id" value="{$order.order_id}"/>
+			</form>
+		</div>
+		{/if}
+		<h2 class="title"><span>{$lang.other_info}</span><em class="extra"></em></h2>
+		<ul class="text_list">
+			{if $order.shipping_id > 0}<li class="first"><strong>{$lang.shipping}{$lang.colon}</strong>{$order.shipping_name}</li>{/if}
+			{if $order.pay_name}<li{if $order.shipping_id <= 0} class="first"{/if}><strong>{$lang.payment}{$lang.colon}</strong>{$order.pay_name}</li>{/if}
+			{if $order.pack_name}<li><strong>{$lang.use_pack}{$lang.colon}</strong>{$order.pack_name}</li>{/if}
+			{if $order.card_name}<li><strong>{$lang.use_card}{$lang.colon}</strong>{$order.card_name}</li>{/if}
+			{if $order.card_message}<li><strong>{$lang.bless_note}{$lang.colon}</strong>{$order.card_message}</li>{/if}
+			{if $order.integral > 0}<li><strong>{$lang.use_integral}{$lang.colon}</strong>{$order.integral}</li>{/if}
+			{if $order.inv_payee && $order.inv_content}
+				<li><strong>{$lang.invoice_title}{$lang.colon}</strong>{$order.inv_payee}</li>
+				<li><strong>{$lang.invoice_content}{$lang.colon}</strong>{$order.inv_content}</li>
+			{/if}
+			{if $order.postscript}<li><strong>{$lang.order_postscript}{$lang.colon}</strong>{$order.postscript}</li>{/if}
+			{if $order.how_oos_name}<li><strong>{$lang.booking_process}{$lang.colon}</strong>{$order.how_oos_name}</li>{/if}
+		</ul>
+	</div>
+</div>

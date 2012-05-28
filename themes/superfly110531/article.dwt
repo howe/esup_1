@@ -1,0 +1,64 @@
+{if $smarty.get.ajax neq 1}<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<div class="col_main">
+	{$render.before_col_main}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		<div class="article box thin_box">
+			<div class="hd"><h3></h3><div class="extra"></div></div>
+			<div class="bd">
+{/if}
+				<div class="article_title clearfix">
+					<h1>{$article.title|escape:html}</h1>
+					<p class="article_info"><span class="author">{$article.author}</span><span class="time">{$article.add_time}</span></p>
+				</div>
+				{if $article.content}
+				<div class="article_content">{$article.content}</div>
+				{else}
+				<p class="empty">{$lang.content_empty}</p>
+				{/if}
+				{if $article.open_type eq 2 or $article.open_type eq 1}
+				<p class="download_wrapper"><a href="{$article.file_url}" class="btn_special btn_download">{$lang.relative_file}</a></p>
+				{/if}
+{if $smarty.get.ajax neq 1}
+				<p class="nearby">{if $prev_article}<a href="{$prev_article.url}" class="prev">&laquo;{$lang.prev_article}{$lang.colon}{$prev_article.title}</a>{/if}
+				{if $next_article}<a href="{$next_article.url}" class="next">{$lang.next_article}{$lang.colon}{$next_article.title}&raquo;</a>{/if}
+				</p>
+			</div>
+		</div>
+		<div class="comment_box box">
+			<div class="hd"><h3>{$lang.article_comment}</h3><div class="extra"></div></div>
+			<div class="bd">
+				<div id="ECS_COMMENT">
+					{insert name='comments' type=$type id=$id}
+				</div>
+			</div>
+		</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏" -->
+	<!-- #BeginLibraryItem "/library/article_category_tree.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>
+{/if}

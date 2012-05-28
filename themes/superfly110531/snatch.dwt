@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}" class="right_sidebar">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<div class="col_main">
+	{$render.before_col_main}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		{if $snatch_goods}
+		<div class="goods_details box thin_box">
+			<div class="hd"><h3></h3><div class="extra"></div></div>
+			<div class="bd">
+				<h1>{$snatch_goods.snatch_name}</h1>
+				<p class="slogan">{$snatch_goods.desc|escape:html|nl2br}</p>
+				<div class="details">
+					<ul class="basic clearfix">
+						<li class="sale_price"><strong>{$lang.shop_price}</strong><em class="price">{$snatch_goods.formated_shop_price}</em></li>
+						<li class="end_time_wrapper"><strong class="label">{$lang.end_time}{$lang.colon}</strong><span class="end_time" title="{siy:date_format date=$snatch_goods.gmt_end_time format='Y-m-d-G-i-s'}">{siy:date_format date=$snatch_goods.gmt_end_time}</span></li>
+						<li><strong>{$lang.market_price}</strong><em class="price market_price">{$snatch_goods.formated_market_price}</em></li>
+					</ul>
+					<div id="snatch_wrapper">
+						{include file='library/snatch.lbi'}
+					</div>
+				</div>
+				<div class="extra_details">
+					<div class="gallery">
+						<a href="{$snatch_goods.url}" class="cover"><img src="{$option.static_path}{siy:goods_info id=$snatch_goods.goods_id type='goods_img'}" alt="{$snatch_goods.goods_name|escape:html}"/></a>
+					</div>
+				</div>
+				<h2 class="title"><span>{$lang.snatch_desc}</span><em class="extra"></em></h2>
+				<div class="goods_description">
+					<p class="time">{$snatch_goods.snatch_time}</p>
+					<p>{$lang.price_extent}<em class="price">{$snatch_goods.formated_start_price}</em> - <em class="price">{$snatch_goods.formated_end_price}</em></p>
+					<p>{$lang.user_to_use_up}<em class="price">{$snatch_goods.cost_points}</em>{$points_name}</p>
+					<p>{$lang.snatch_victory_desc}</p>
+					<p>{if $snatch_goods.max_price neq 0}
+					{$lang.price_less_victory}{$snatch_goods.formated_max_price}，{$lang.price_than_victory}{$snatch_goods.formated_max_price}，{$lang.or_can}{$snatch_goods.formated_max_price}{$lang.shopping_product}。
+					{else}
+					{$lang.victory_price_product}
+					{/if}</p>
+				</div>
+				<h2 class="title"><span>{$lang.snatch_price}</span><em class="extra"></em></h2>
+				<div id="price_list" class="price_list">
+					{include file='library/snatch_price.lbi'}
+				</div>
+			</div>
+		</div>
+		{/if}
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+		<div class="snatch_list box">
+			<div class="hd"><h3>{$lang.snatch_list}</h3><div class="extra"></div></div>
+			<div class="bd">
+				<ul class="text_list">
+					{foreach from=$snatch_list item=item name=snatch_list}
+					<li class="{if $item.overtime}end{else}active{/if}{if $smarty.foreach.snatch_list.first} first{/if}"><a href="{$item.url}">{$item.snatch_name}</a></li>
+					{/foreach}
+				</ul>
+			</div>
+		</div>
+	<!-- TemplateBeginEditable name="侧栏下方" -->
+		<!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

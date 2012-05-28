@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<div class="col_main">
+	{$render.before_col_main}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		<!-- #BeginLibraryItem "/library/goods_detail.lbi" --><!-- #EndLibraryItem -->
+<div id="goods_info">
+		{$render.before_goods_info}
+		{if $goods.goods_desc}
+		<div class="goods_desc box" id="description">
+			<div class="hd"><h3>{$lang.goods_description}</h3><div class="extra"></div></div>
+			<div class="bd">
+				<div class="goods_description">{$goods.goods_desc}</div>
+			</div>
+		</div>
+		{/if}
+		{if $properties}
+		<div class="goods_properties box" id="properties">
+			<div class="hd"><h3>{$lang.goods_properties}</h3><div class="extra"></div></div>
+			<div class="bd">
+				<div class="goods_description">
+					<dl class="table">
+						<dt class="head">{$lang.attr_name}</dt>
+						<dd class="head">{$lang.attr_value}</dd>
+						{foreach from=$properties item=property_group key=key}
+						{foreach from=$property_group item=property}
+						<dt>{$property.name|escape:html}</dt>
+						<dd class="{cycle values='odd,even'}">{$property.value}</dd>
+						{/foreach}
+						{/foreach}
+					</dl>
+				</div>
+			</div>
+		</div>
+		{/if}
+		{if $package_goods_list}
+		<div class="package_goods box" id="package">
+			<div class="hd"><h3>{$lang.remark_package}</h3><div class="extra"></div></div>
+			<div class="bd">
+				{foreach from=$package_goods_list item=package_goods name=package_goods_list}
+				<dl{if $smarty.foreach.package_goods_list.first} class="first"{/if}>
+					<dt>{$package_goods.act_name}</dt>
+					<dd class="item_wrapper">
+						{foreach from=$package_goods.goods_list item=goods_list name=goods_list}
+						<span class="item{if $smarty.foreach.goods_list.last} last{/if}">
+							<a href="{siy:build_uri app='goods' gid=$goods_list.goods_id append=$goods_list.goods_name}" class="photo"><img src="{$option.static_path}{$goods_list.goods_thumb}" alt="{$goods_list.goods_name|escape:html}"/></a>
+							<a href="{siy:build_uri app='goods' gid=$goods_list.goods_id append=$goods_list.goods_name}" class="name">{$goods_list.goods_name}{$goods_list.goods_attr_str}</a>
+							<em>{$lang.quantity}{$lang.colon}{$goods_list.goods_number}</em>
+						</span>
+						{/foreach}
+					</dd>
+					<dd class="price_wrapper">
+						<span>{$lang.package_price}<em class="price shop">{$package_goods.package_price}</em></span>
+						<span>{$lang.old_price}<em class="price market_price">{$package_goods.subtotal}</em></span>
+						<span>{$lang.then_old_price}<em class="price">{$package_goods.saving}</em></span>
+					</dd>
+					<dd class="action"><a href="javascript:addPackageToCart({$package_goods.act_id})" class="button brighter_button"><span>{$lang.add_to_cart}</span></a></dd>
+				</dl>
+				{/foreach}
+			</div>
+		</div>
+		{/if}
+		{include file='library/goods_fittings.lbi'}
+		{include file='library/goods_related.lbi'}
+		{include file='library/bought_note_guide.lbi'}
+		{include file='library/comments.lbi'}
+		{$render.after_goods_info}
+</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏" -->
+		<!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/goods_attrlinked.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/bought_goods.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/goods_article.lbi" --><!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+	<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,121 @@
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs">
+		<a href="user.php?act=profile" id="tab_profile"><span>{$lang.label_profile}</span></a>
+		<a href="user.php?act=address_list" id="tab_address_list" class="current"><span>{$lang.label_address}</span></a>
+	</p>
+	<div class="extra"></div>
+</div>
+<div class="consignee_list box">
+	<div class="hd"><h3>{$lang.label_address}</h3><div class="extra"></div></div>
+	<div class="bd">
+		{foreach from=$consignee_list item=consignee key=sn name=consignee_list}
+		{if !$consignee.consignee}<h2 class="title"><span>{$lang.add_address}{$lang.colon}</span><em class="extra"></em></h2>{/if}
+		<form action="user.php" method="post" name="theForm" onsubmit="return checkConsignee(this)"{if $smarty.foreach.consignee_list.first} class="first"{/if}>
+			<table class="data_table">
+				<colgroup>
+					<col width="100"/>
+					<col width="300"/>
+					<col width="100"/>
+					<col width="300"/>
+				</colgroup>
+				<tbody>
+					<tr class="odd" style="display:none">                    
+						<th>{$lang.country_province}{$lang.colon}</th>
+						<td colspan="3" class="last">
+							<select name="country" id="selCountries_{$sn}" onchange="regionChanged(this, 1, 'selProvinces_{$sn}')">
+								<option value="0">{$lang.please_select}{$name_of_region[0]}</option>
+								{foreach from=$country_list item=country}
+								<option value="{$country.region_id}"{if $consignee.country eq $country.region_id} selected="selected"{/if}>{$country.region_name}</option>
+								{/foreach}
+								</select>
+								<select name="province" id="selProvinces_{$sn}" onchange="regionChanged(this, 2, 'selCities_{$sn}')">
+								<option value="0">{$lang.please_select}{$name_of_region[1]}</option>
+								{foreach from=$province_list.$sn item=province}
+								<option value="{$province.region_id}"{if '2' eq $province.region_id} selected="selected"{/if}>{$province.region_name}</option>
+								{/foreach}
+							</select>
+							<select name="city" id="selCities_{$sn}" onchange="regionChanged(this, 3, 'selDistricts_{$sn}')">
+								<option value="0">{$lang.please_select}{$name_of_region[2]}</option>
+								{foreach from=$city_list.$sn item=city}
+								<option value="{$city.region_id}"{if '52' eq $city.region_id} selected="selected"{/if}>{$city.region_name}</option>
+								{/foreach}
+								</select>
+								<select name="district" id="selDistricts_{$sn}" {if !$district_list.$sn}style="display:none"{/if}>
+								<option value="0">{$lang.please_select}{$name_of_region[3]}</option>
+								{foreach from=$district_list.$sn item=district}
+								<option value="{$district.region_id}"{if '500' eq $district.region_id} selected="selected"{/if}>{$district.region_name}</option>
+								{/foreach}
+							</select>
+							{$lang.require_field}
+						</td>
+					</tr>
+					<tr class="odd" style="display:none">
+						<th>{$lang.detailed_address}{$lang.colon}</th>
+						<td><input type="text" name="address" value ="esup" id="address_{$sn}"/>{$lang.require_field}</td>
+						<th>{$lang.postalcode}{$lang.colon}</th>
+						<td class="last"><input type="text" name="zipcode" value="{$consignee.zipcode|escape}" id="zipcode_{$sn}"/></td>
+					</tr>
+					<tr class="even">
+						<th>{$lang.consignee_name}{$lang.colon}</th>
+						<td class="odd"><input type="text" name="consignee" value ="{$consignee.consignee|escape}" id="consignee_{$sn}"/>{$lang.require_field}</td>
+						<th>{$lang.email_address}{$lang.colon}</th>
+						<td class="odd"><input name="email" type="text" value="{$consignee.email|escape}" id="email_{$sn}"/>{$lang.require_field}</td>
+					</tr>
+					<tr class="even">
+						<th>{$lang.phone}{$lang.colon}</th>
+						<td class="odd"><input type="text" name="tel" value="{$consignee.tel|escape}" id="tel_{$sn}"/>{$lang.require_field}</td>
+						<th>{$lang.backup_phone}{$lang.colon}</th>
+						<td class="odd"><input name="mobile" type="text" value="{$consignee.mobile|escape}" id="mobile_{$sn}"/></td>
+					</tr>
+                    <tr class="even">
+						<th>{$lang.game_nickname}{$lang.colon}</th>
+						<td class="odd"><input type="text" name="game_nickname" value="{$consignee.game_nickname|escape}" id="tel_{$sn}"/>{$lang.game_wushi}</td>
+						<th>{$lang.game_level}{$lang.colon}</th>
+						<td class="odd"><input name="game_level" type="text" value="{$consignee.game_level|escape}" id="mobile_{$sn}"/></td>
+					</tr>
+                    <tr class="even">
+						<th>{$lang.game_jueseid}{$lang.colon}</th>
+						<td class="odd"><input type="text" name="game_jueseid" value="{$consignee.game_jueseid|escape}" id="tel_{$sn}"/></td>
+						<th>{$lang.game_zhiye}{$lang.colon}</th>
+						<td class="odd"><input name="game_zhiye" type="text" value="{$consignee.game_zhiye|escape}" id="mobile_{$sn}"/></td>
+					</tr>
+					<tr class="odd last" style="display:none;">
+						<th>{$lang.sign_building}{$lang.colon}</th>
+						<td><input type="text" name="sign_building" value="{$consignee.sign_building|escape}" id="sign_building_{$sn}"/></td>
+						<th>{$lang.deliver_goods_time}{$lang.colon}</th>
+						<td class="last"><input type="text" name="best_time" value="{$consignee.best_time|escape}" id="best_time_{$sn}"/></td>
+					</tr>
+
+				</tbody>
+				<tfoot>
+					<tr>
+						<td class="last">&nbsp;</td>
+						<td colspan="3" class="last">
+							{if $consignee.consignee && $consignee.email}
+							<input type="submit" name="submit" value="{$lang.confirm_edit}" class="btn_s3_b"/>
+							<a href="javascript:void(0);" onclick="if (confirm('{$lang.confirm_drop_address}'))location.href='user.php?act=drop_consignee&id={$consignee.address_id}'" class="tool_link"/>{$lang.drop}</a>
+							{else}
+							<input type="submit" name="submit" value="{$lang.add_address}" class="btn_s4"/>
+							{/if}
+							<input type="hidden" name="act" value="act_edit_address" />
+							<input type="hidden" name="address_id" value="{$consignee.address_id}" />
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+		{/foreach}
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+{foreach from=$lang.flow_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+{literal}
+onload = function() {
+	if(!document.all){document.forms['theForm'].reset();}
+}
+{/literal}
+</script>

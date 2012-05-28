@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<div class="col_main">
+	{$render.before_col_main}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		<div class="tags_cloud box">
+			<div class="hd"><h3>{$lang.tag_cloud}</h3><div class="extra"></div></div>
+			<div class="bd">
+				<p class="description">{$lang.tag_cloud_desc}</p>
+				{if $tags}
+				<p class="tags">
+				{foreach from=$tags item=tag}
+				<span class="item_wrapper"><a href="{$tag.url}" class="item">{$tag.tag_words|escape:html}<em>{$tag.tag_count}</em></a>
+				{if $tag.user_id eq $smarty.session.user_id}<a href="user.php?act=act_del_tag&tag_words={$tag.tag_words|escape:url}&uid={$tag.user_id}" class="drop">{$lang.drop}</a>{/if}</span>
+				{/foreach}
+				</p>
+				{else}
+				<p class="empty">{$lang.tags_cloud_empty}<p>
+				{/if}
+			</div>
+		</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏" -->
+	<!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

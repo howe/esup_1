@@ -1,0 +1,6 @@
+<div class="comment_box box" id="comment">
+	<div class="hd"><h3>{$lang.goods_comment}</h3><div class="extra">{$lang.comments_amounts_pre}<em>{siy:comment_count id=$id type=$type}</em>{$lang.comments_amounts_suf}</div></div>
+	<div class="bd">
+		<div id="comment_wrapper">{insert name='comments' type=$type id=$id}</div>
+	</div>
+</div>

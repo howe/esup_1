@@ -1,0 +1,235 @@
+<div class="tab_able_box">
+<div class="tab_wrapper">
+	<p class="tabs">
+		<a href="user.php?act=account_detail" id="tab_user_account" class="current"><span>{$lang.label_user_surplus}</span></a>
+		<a href="user.php?act=bonus" id="tab_bonus"><span>{$lang.label_bonus}</span></a>
+	</p>
+	<div class="extra"></div>
+</div>
+<div class="funds box">
+	<div class="hd"><h3>{$lang.label_user_surplus}</h3><div class="extra"></div></div>
+	<div class="bd">
+		<p class="actions">
+			<a href="user.php?act=account_detail" class="button{if $action eq 'account_detail'} bright_button{/if}"><span>{$lang.add_surplus_log}</span></a>
+			<a href="user.php?act=account_log" class="button{if $action eq 'account_log'} bright_button{/if}"><span>{$lang.view_application}</span></a>
+			<a href="user.php?act=account_deposit" class="button{if $action eq 'account_deposit'} bright_button{/if}"><span>{$lang.surplus_type_0}</span></a>
+			<a href="user.php?act=account_raply" class="button{if $action eq 'account_raply'} bright_button{/if}"><span>{$lang.surplus_type_1}</span></a>
+		</p>
+		{if $action eq "account_raply"}
+		<form name="formSurplus" method="post" action="user.php" onSubmit="return submitSurplus()">
+			<table class="data_table">
+				<colgroup>
+					<col width="100"/>
+					<col width="700"/>
+				</colgroup>
+				<tbody>
+					<tr class="odd">
+						<th>{$lang.repay_money}{$lang.colon}</th>
+						<td class="last"><input type="text" name="amount" value="{$order.amount|escape}"/></td>
+					</tr>
+					<tr class="even last">
+						<th>{$lang.process_notic}{$lang.colon}</th>
+						<td class="last"><textarea name="user_note" cols="55" rows="6">{$order.user_note|escape}</textarea></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td class="last">&nbsp;</td>
+						<td class="last">
+							<input type="submit" name="submit" value="{$lang.submit_request}" class="btn_s3_b"/>
+							<input type="hidden" name="surplus_type" value="1"/>
+							<input type="hidden" name="act" value="act_account"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+		{/if}
+		{if $action eq "account_deposit"}
+		<form name="formSurplus" method="post" action="user.php" onSubmit="return submitSurplus()">
+			<table class="data_table">
+				<colgroup>
+					<col width="100"/>
+					<col width="700"/>
+				</colgroup>
+				<tbody>
+					<tr class="odd">
+						<th>{$lang.deposit_money}{$lang.colon}</th>
+						<td class="last"><input type="text" name="amount" value="{$order.amount|escape}"/></td>
+					</tr>
+					<tr class="even">
+						<th>{$lang.process_notic}{$lang.colon}</th>
+						<td class="last"><textarea name="user_note" cols="55" rows="6">{$order.user_note|escape}</textarea></td>
+					</tr>
+					<tr class="odd last">
+						<th>{$lang.payment}{$lang.colon}</th>
+						<td class="last">
+							<table class="data_table">
+								<colgroup>
+									<col width="10"/>
+									<col width="60"/>
+									<col width="250"/>
+									<col width="10"/>
+								</colgroup>
+								<thead>
+									<tr>
+										<th>&nbsp;</th>
+										<th>{$lang.pay_name}</th>
+										<th>{$lang.pay_desc}</th>
+										<th class="last">{$lang.pay_fee}</th>
+									</tr>
+								</thead>
+								<tbody>
+									{foreach from=$payment item=list name=payment}
+									<tr class="{cycle values="odd,even"}{if $smarty.foreach.payment.last} last{/if}">
+										<td><input type="radio" name="payment_id" value="{$list.pay_id}"/></td>
+										<td>{$list.pay_name}</td>
+										<td>{$list.pay_desc}</td>
+										<td class="price last">{$list.pay_fee}</td>
+									</tr>
+									{/foreach}
+								<tbody>
+							</table>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td class="last">&nbsp;</td>
+						<td class="last">
+							<input type="submit" name="submit" value="{$lang.submit_request}" class="btn_s3_b"/>
+							<input type="hidden" name="surplus_type" value="0"/>
+							<input type="hidden" name="rec_id" value="{$order.id}"/>
+							<input type="hidden" name="act" value="act_account"/>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</form>
+		{/if}
+		{if $action eq "act_account"}
+		<table class="data_table">
+			<colgroup>
+				<col width="100"/>
+				<col width="500"/>
+			</colgroup>
+			<tbody>
+				<tr class="odd">
+					<th>{$lang.surplus_amount}</th>
+					<td class="last">{$amount}</td>
+				</tr>
+				<tr class="even">
+					<th>{$lang.payment_name}</th>
+					<td class="last">{$payment.pay_name}</td>
+				</tr>
+				<tr class="odd">
+					<th>{$lang.payment_fee}</th>
+					<td class="last">{$pay_fee}</td>
+				</tr>
+				<tr class="even last">
+					<th>{$lang.payment_desc}</th>
+					<td class="last">{$payment.pay_desc}</td>
+				</tr>
+			</tbody>
+			{if $payment.pay_button}
+			<tfoot>
+				<tr class="odd last">
+					<td class="last">&nbsp;</td>
+					<td class="last">{$payment.pay_button}</td>
+				</tr>
+			</tfoot>
+			{/if}
+		</table>
+		{/if}
+		{if $action eq "account_detail"}
+		{if $account_log}
+		<table class="data_table">
+			<colgroup>
+				<col width="100"/>
+				<col width="80"/>
+				<col width="120"/>
+				<col width="400"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>{$lang.process_time}</th>
+					<th>{$lang.surplus_pro_type}</th>
+					<th>{$lang.money}</th>
+					<th class="last">{$lang.change_desc}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$account_log item=item name=account_log}
+				<tr class="{cycle values="odd,even"}{if $smarty.foreach.account_log.last} last{/if}">
+					<td>{$item.change_time}</td>
+					<td>{$item.type}</div></td>
+					<td class="price">{$item.amount}</td>
+					<td class="last">{$item.change_desc}</td>
+				</tr>
+				{/foreach}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10" class="last">{$lang.current_surplus}<span class="price">{$surplus_amount}</span></td>
+				</tr>
+			</tfoot>
+		</table>
+		{else}
+		<p class="empty">{$lang.account_log_empty}</p>
+		{/if}
+		{/if}
+		{if $action eq "account_log"}
+		{if $account_log}
+		<table class="data_table">
+			<colgroup>
+				<col width="100"/>
+				<col width="60"/>
+				<col width="120"/>
+				<col width="200"/>
+				<col width="200"/>
+				<col width="80"/>
+				<col width="100"/>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>{$lang.process_time}</th>
+					<th>{$lang.surplus_pro_type}</th>
+					<th>{$lang.money}</th>
+					<th>{$lang.process_notic}</th>
+					<th>{$lang.admin_notic}</th>
+					<th>{$lang.is_paid}</th>
+					<th class="last">{$lang.handle}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$account_log item=item name=account_log}
+				<tr class="{cycle values="odd,even"}{if $smarty.foreach.account_log.last} last{/if}">
+					<td>{$item.add_time}</td>
+					<td>{$item.type}</td>
+					<td class="price">{$item.amount}</td>
+					<td>{$item.user_note}</td>
+					<td>{$item.admin_note}</td>
+					<td>{$item.pay_status}</td>
+					<td class="last">{$item.handle}{if ($item.is_paid eq 0 && $item.process_type eq 1) || $item.handle}&nbsp;<a href="user.php?act=cancel&id={$item.id}" onclick="if (!confirm('{$lang.confirm_remove_account}')) return false;">{$lang.is_cancel}</a>{/if}</td>
+				</tr>
+				{/foreach}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="10" class="last">{$lang.current_surplus}<span class="price">{$surplus_amount}</span></td>
+				</tr>
+			</tfoot>
+		</table>
+		{else}
+		<p class="empty">{$lang.account_log_empty}</p>
+		{/if}
+		{/if}
+		{if $account_log}{include file='library/pages.lbi'}{/if}
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+{foreach from=$lang.account_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>

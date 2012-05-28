@@ -1,0 +1,20 @@
+{if $related_goods}
+<div class="goods_related box" id="related">
+	<div class="hd"><h3>{$lang.related_goods}</h3><div class="extra"><em>{siy:count array=$related_goods}</em></div></div>
+	<div class="bd goods_list">	
+		<ul>
+			{foreach from=$related_goods item=releated_goods_data name=related_goods}
+			<li{if $smarty.foreach.related_goods.index %4==0} class="first_child"{/if} data="id:'{$goods.goods_id}'">
+				<span class="photo">
+					<a href="{$releated_goods_data.url}" title="{$releated_goods_data.goods_name|escape:html}" class="image"><img src="{$option.static_path}{$releated_goods_data.goods_thumb}" alt="{$releated_goods_data.goods_name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$releated_goods_data.url}" title="{$releated_goods_data.goods_name|escape:html}" class="name">{$releated_goods_data.short_name}</a>
+					<em class="price">{if $releated_goods_data.formated_promote_price}{$releated_goods_data.formated_promote_price}{else}{$releated_goods_data.shop_price}{/if}</em>{if $releated_goods_data.formated_promote_price}<span class="promo" title="{$releated_goods_data.shop_price} &gt; {$releated_goods_data.formated_promote_price}">{$lang.sale}</span>{/if}
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}

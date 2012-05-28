@@ -1,0 +1,25 @@
+{if $goods}
+<div id="history" class="history box">
+	<div class="hd">
+		<h3>{$lang.view_history}</h3>
+		<div class="extra">
+			<a href="javascript:clearHistory()" title="{$lang.clear}{$lang.view_history}" class="tip">{$lang.clear}</a>
+		</div>
+	</div>
+	<div class="bd goods_list">
+		<ul>
+			{foreach from=$goods item=goods name=goods}
+			<li{if $smarty.foreach.goods.first} class="first"{/if} data="id:'{$goods.goods_id}'">
+				<span class="photo">
+					<a href="{$goods.url}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a>
+				</span>
+				<span class="info">
+					<a href="{$goods.url}" title="{$goods.name|escape:html}" class="name">{$goods.short_name}</a>
+					<em class="price">{if $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}</em>{if $goods.promote_price}<span class="promo" title="{$goods.shop_price|escape:html} &gt; {$goods.promote_price|escape:html}">{$lang.sale}</span>{/if}
+				</span>
+			</li>
+			{/foreach}
+		</ul>
+	</div>
+</div>
+{/if}

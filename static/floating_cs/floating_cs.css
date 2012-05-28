@@ -1,0 +1,14 @@
+#siy_floating_cs{position:fixed;z-index:100;top:185px;right:3px;}
+#siy_floating_cs .bar{height:100px;width:25px;background:url('bar.gif') no-repeat left top;}
+#siy_floating_cs .body{display:none;width:168px;background-color:#fff;border:1px solid #bbb;border-radius:0 0 5px 5px;}
+#siy_floating_cs .title{height:25px;background:url('title.gif') no-repeat center top;border-bottom:1px solid #bbb;}
+#siy_floating_cs .time{height:50px;background:#ffad00 url('bright_bg.gif') repeat-x left top;}
+#siy_floating_cs .time p{padding-top:4px;color:#fff;line-height:14px;text-align:center;text-shadow:0 0 0, 0 1px 0 #e18600;}
+#siy_floating_cs .time p strong{display:block;font-weight:bold;}
+#siy_floating_cs .section{padding:14px 9px 9px;}
+#siy_floating_cs .section p{margin-bottom:5px;line-height:16px;}
+#siy_floating_cs .section p a, #siy_floating_cs .section p img, #siy_floating_cs .section p em{vertical-align:middle;}
+#siy_floating_cs .section p a{margin-right:3px;}
+
+#siy_floating_cs:hover .bar{display:none;}
+#siy_floating_cs:hover .body{display:block;}

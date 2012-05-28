@@ -1,0 +1,10 @@
+{if $cat_promotion and $option.cat_promotion_number gt 0}
+<dl class="cat_promotion">
+	<dt>{$lang.cat_promotion_label}</dt>
+	{foreach from=$cat_promotion item=promotion name=promotion}
+	{if $smarty.foreach.brands.index lt $option.cat_promotion_number}
+	<dd><a href="{$promotion.url}">{$promotion.name}</a></dd>
+	{/if}
+	{/foreach}
+</dl>
+{/if}

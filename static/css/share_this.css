@@ -1,0 +1,20 @@
+.share_this{float:left;clear:both;margin-top:30px;padding:20px 0 0 10px;background:url('../img/share_bg.gif') no-repeat left top;}
+.share_this a{display:block;float:left;width:65px;height:15px;padding-top:35px;text-align:center;color:#999;text-decoration:none;background:url('../img/share_icon.gif') no-repeat;}
+.share_this .st_sohu{background-position:-5px -40px;}
+.share_this .st_sohu:hover{background-position:-5px 1px;}
+.share_this .st_kaixin{background-position:-75px -40px;}
+.share_this .st_kaixin:hover{background-position:-75px 1px;}
+.share_this .st_twitter{background-position:-145px -40px;}
+.share_this .st_twitter:hover{background-position:-145px 1px;}
+.share_this .st_sina{background-position:-215px -40px;}
+.share_this .st_sina:hover{background-position:-215px 1px;}
+.share_this .st_qq{background-position:-285px -40px;}
+.share_this .st_qq:hover{background-position:-285px 1px;}
+.share_this .st_gg{background-position:-355px -40px;}
+.share_this .st_gg:hover{background-position:-355px 1px;}
+.share_this .st_renren{background-position:-425px -40px;}
+.share_this .st_renren:hover{background-position:-425px 1px;}
+.share_this .st_facebook{background-position:-495px -40px;}
+.share_this .st_facebook:hover{background-position:-495px 1px;}
+.share_this .st_163{background-position:-565px -40px;}
+.share_this .st_163:hover{background-position:-565px 1px;}

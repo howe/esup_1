@@ -1,0 +1,16 @@
+<div class="consignee_list box full_box">
+	<div class="hd"><h3>{$lang.consignee_info}</h3><div class="extra"></div></div>
+	<div class="bd">
+		{foreach from=$consignee_list item=consignee key=sn name=consignee_list}
+		{if !$consignee.consignee}<h4>{$lang.add_address}{$lang.colon}</h4>{/if}
+		<form action="flow.php" method="post" name="theForm" onsubmit="return checkConsignee(this)"{if $smarty.foreach.consignee_list.first} class="first"{/if}>
+			{include file='library/consignee.lbi'}
+		</form>
+		{/foreach}
+	</div>
+</div>
+<script type="text/javascript">
+{foreach from=$lang.flow_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+</script>

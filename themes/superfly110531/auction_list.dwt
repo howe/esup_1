@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+{if $description}<meta name="description" content="{$description}"/>{/if}
+{if $keywords}<meta name="keywords" content="{$keywords}"/>{/if}
+<title>{$page_title} - ESUP网游</title>
+{include file='library/html_header.lbi'}
+</head>
+<body id="page_{$pname}" class="right_sidebar">
+{include file='library/page_header.lbi'}
+<div id="content"><div class="container">
+	{include file='library/ur_here.lbi'}
+	<div class="col_main">
+	{$render.before_col_main}
+	<!-- TemplateBeginEditable name="主栏上方" --><!-- TemplateEndEditable -->
+		<div class="promotion_goods_list box">
+			<div class="hd"><h3>{$lang.auction_goods}</h3><div class="extra"></div></div>
+			<div class="bd">
+				{if $auction_list}
+				{foreach from=$auction_list item=auction name=auction_list}
+				<div class="item clearfix{if $smarty.foreach.auction_list.first} first{/if}">
+					<h2 class="name"><a href="{$auction.url}">{$auction.goods_name|escape:html}</a></h2>
+					<p class="photo_wrapper"><a href="{$auction.url}" class="photo"><img src="{$option.static_path}{$auction.goods_thumb}" alt="{$auction.goods_name|escape:html}"/></a></p>
+					<ul class="details">
+						<li class="end_time_wrapper"><strong class="label">{$lang.end_time}{$lang.colon}</strong><span class="end_time" title="{siy:date_format date=$auction.end_time format='Y-m-d-G-i-s' timezone='0'}">{$auction.end_time}</span></li>
+						<li><strong>{$lang.act_status}</strong>{if $auction.status_no eq 0}{$lang.au_pre_start}{elseif $auction.status_no eq 1}{$lang.au_under_way_1}{else}{$lang.au_finished}{/if}</li>
+					</ul>
+					<div class="actions">
+						<p class="bright_price"><strong>{$lang.au_start_price}</strong><em class="price">{$auction.formated_start_price}</em></p>
+						{if $auction.end_price gt 0}<p><strong>{$lang.au_end_price}</strong><em class="price">{$auction.formated_end_price}</em></p>{/if}
+						<p class="button_wrapper"><a href="{$auction.url}" class="btn_special btn_detail"><span>{$lang.btn_detail}</span></a></p>
+					</div>
+				</div>
+				{/foreach}
+				{else}
+				<div class="empty">{$lang.no_auction}</div>
+				{/if}
+				{include file='library/pages.lbi'}
+			</div>
+		</div>
+	<!-- TemplateBeginEditable name="主栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_main}
+	</div>
+	<div class="col_sub">
+	{$render.before_col_sub}
+	<!-- TemplateBeginEditable name="侧栏上方" --><!-- TemplateEndEditable -->
+		<!-- TemplateBeginEditable name="侧栏" -->
+		<!-- #BeginLibraryItem "/library/top10.lbi" --><!-- #EndLibraryItem -->
+		<!-- TemplateEndEditable -->
+	<!-- TemplateBeginEditable name="侧栏下方" --><!-- TemplateEndEditable -->
+	{$render.after_col_sub}
+	</div>
+</div></div>
+{include file='library/page_footer.lbi'}
+{include file='library/html_footer.lbi'}
+</body>
+</html>

@@ -1,0 +1,24 @@
+{if $nav}
+<div class="nav">
+	<ul class="level_1">
+		<li class="level_1 first{if $pname eq 'index'} current{/if}"><a href="{$hu}" class="level_1"><strong><span>{$lang.home}</span></strong></a></li>
+		{foreach from=$nav item='nav' name='nav'}
+		<li class="level_1{if $nav.active} current{/if}{if $nav.children} parent{/if}">
+			<a href="{$nav.url}" class="level_1"{if $nav.opennew} rel="external"{/if}><strong><span>{$nav.name}</span></strong></a>
+			{if $nav.children}
+			<div class="sub_nav">
+				<em class="arrow">&uarr;</em>
+				<div class="inner">
+					<ul class="level_2 clearfix">
+						{foreach from=$nav.children item='child' name='child'}
+						<li class="level_2{if $smarty.foreach.child.first} first{/if}{if $child.active} current{/if}"><a href="{$child.url}" class="level_2"{if $child.opennew} rel="external"{/if}><span>{$child.name}</span></a></li>
+						{/foreach}
+					</ul>
+				</div>
+			</div>
+			{/if}
+		</li>
+		{/foreach}
+	</ul>
+</div>
+{/if}

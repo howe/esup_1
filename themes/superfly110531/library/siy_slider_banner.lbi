@@ -1,0 +1,21 @@
+{if $banner}
+<div class="box thin_box">
+	<div class="hd"><h3></h3><div class="extra"></div></div>
+	<div class="bd">
+		<div class="slider" id="slider_hp">
+			<ul>
+				{foreach from=$banner item=banner name=banner}
+				<li><a href="{$banner.url}"><img src="{$banner.src}" alt="{$banner.text|escape:html}" /></a></li>
+				{/foreach}
+			</ul>
+		</div>
+	</div>
+</div>
+{if $option.slider_banner_height}
+<style type="text/css">
+.slider, .slider li, .slider img{height:{$option.slider_banner_height}px;}
+.three_col .slider, .three_col .slider li, .three_col .slider img{height:{siy:calculate number=$option.slider_banner_height formula='*495/735'}px;}
+.wide .three_col .slider, .wide .three_col .slider li, .wide .three_col .slider img{height:{$option.slider_banner_height}px;}
+</style>
+{/if}
+{/if}

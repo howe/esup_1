@@ -1,0 +1,39 @@
+{if $hot_goods}
+{if $cat_rec_sign neq 1}
+<div class="box{if $pname eq 'index'} extra_box{else} special_box{/if} hot_goods">
+	<div class="hd">
+		<h3>{$lang.hot_goods}</h3>
+		<div class="extra">
+			{if $cat_rec[3]}
+			<p class="selector" id="itemHot">
+				<a href="javascript:void(0)" onclick="getRecommend(3, 0);" class="current"><span>{$lang.all_goods}</span></a>
+				{foreach from=$cat_rec[3] item=rec_data}
+				<a href="javascript:void(0)" onclick="getRecommend(3, {$rec_data.cat_id})"><span>{$rec_data.cat_name}</span></a>
+				{/foreach}
+			</p>
+			{/if}
+		</div>
+	</div>
+	<div class="bd goods_list">
+		<div id="show_hot">
+			{/if}
+			<ul>
+				{foreach from=$hot_goods item=goods name=hot_goods}
+				<li{if $smarty.foreach.hot_goods.index %4==0} class="first_child"{/if} data="id:'{$goods.id}'">
+					<span class="photo">
+						<a href="{$goods.url}" title="{$goods.name|escape:html}" class="image"><img src="{$option.static_path}{$goods.thumb}" alt="{$goods.name|escape:html}"/></a>
+					</span>
+					<span class="info">
+						<a href="{$goods.url}" title="{$goods.name|escape:html}" class="name">{$goods.short_style_name}</a>
+						<em class="price">{if $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}</em>{if $goods.promote_price}<span class="promo" title="{$goods.shop_price|escape:html} &gt; {$goods.promote_price|escape:html}">{$lang.sale}</span>{/if}
+					</span>
+				</li>
+				{/foreach}
+			</ul>
+			{if $cat_rec_sign neq 1}
+		</div>
+		<a href="search.php?intro=hot" title="{$lang.more}{$lang.hot_goods}" class="more button brighter_button"><span>{$lang.more}</span></a>
+	</div>
+</div>
+{/if}
+{/if}

@@ -1,0 +1,97 @@
+{$render.before_footer}
+<div id="footer">
+	<div class="container">
+		{include file='library/links.lbi'}
+		<div class="footer_listing box thin_box full_box">
+			<div class="hd"><h3></h3><div class="extra"></div></div>
+			<div class="bottom_nav_wrapper clearfix">
+				<p class="bottom_nav">{if $navigator_list.bottom}{foreach from=$navigator_list.bottom item=nav name=nav_bottom_list}<a href="{$nav.url}"{if $nav.opennew eq 1} rel="external"{/if} class="{if $smarty.foreach.nav_bottom_list.first}first{/if}{if $smarty.foreach.nav_bottom_list.index gte $option.bottom_navigator_number} hidden{/if}">{$nav.name}</a>{/foreach}{/if}</p>
+				<a href="#top" class="back_to_top">{$lang.back_to_top}</a>
+			</div>
+			<div class="bd">
+				<div class="inner clearfix">
+					<div class="contact">
+						<h4>{$lang.contact_information}</h4>
+						{if $service_phone}<p class="tel">{$service_phone}</p>{/if}
+						{if $service_email}<p>{$lang.email}{$lang.colon}<a href="mailto:{$service_email}">{$service_email}</a></p>{/if}
+						{if $shop_address}<p>{$shop_address}</p>{/if}
+						{foreach from=$qq item=im name=im}
+						{if $im}{if $smarty.foreach.im.first}<p>{/if}<a href="http://wpa.qq.com/msgrd?v=3&uin={$im}&site=qq&menu=yes" rel="external"><img src="http://wpa.qq.com/pa?p=3:{$im}:42" alt="QQ" /></a>{if $smarty.foreach.im.last}</p>{/if}{/if}
+						{/foreach}
+						{foreach from=$ww item=im name=im}
+						{if $im}{if $smarty.foreach.im.first}<p>{/if}<a target="_blank" href="http://amos.im.alisoft.com/msg.aw?v=2&uid={$im|escape:html}&site=cntaobao&s=1&charset=utf-8" ><img border="0" src="http://amos.im.alisoft.com/online.aw?v=2&uid={$im|escape:html}&site=cntaobao&s=1&charset=utf-8" alt="点击这里给我发消息" /></a>{if $smarty.foreach.im.last}</p>{/if}{/if}
+						{/foreach}
+						{foreach from=$ym item=im name=im}
+						{if $im}{if $smarty.foreach.im.first}<p>{/if}<a href="http://edit.yahoo.com/config/send_webmesg?.target={$im}n&.src=pg" rel="external"><img src="static/img/icon/yahoo.gif" alt="Yahoo Messenger" />{$im}</a>{if $smarty.foreach.im.last}</p>{/if}{/if}
+						{/foreach}
+						{foreach from=$msn item=im name=im}
+						{if $im}{if $smarty.foreach.im.first}<p>{/if}<a href="msnim:chat?contact={$im}" rel="external"><img src="static/img/icon/msn.gif" alt="MSN" /></a>{if $smarty.foreach.im.last}</p>{/if}{/if}
+						{/foreach}
+						{foreach from=$skype item=im name=im}
+						{if $im}{if $smarty.foreach.im.first}<p>{/if}<a href="skype:{$im|escape:url}?call" rel="external"><img src="http://mystatus.skype.com/smallclassic/{$im|escape:url}" alt="Skype" />{$im}</a>{if $smarty.foreach.im.last}</p>{/if}{/if}
+						{/foreach}
+					</div>
+					<div class="articles">
+					{foreach from=$helps item=help_cat name=helps}
+					{if $smarty.foreach.helps.index < 5}
+					<dl{if $smarty.foreach.helps.first} class="first"{/if}>
+						<dt><a href="{$help_cat.cat_id}">{$help_cat.cat_name}</a></dt>
+						{foreach from=$help_cat.article item=item name=help_list}
+						{if $smarty.foreach.help_list.index < 5}
+						<dd><a href="{$item.url}">{$item.short_title}</a></dd>
+						{/if}
+						{/foreach}
+					</dl>
+					{/if}
+					{/foreach}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="hd"><h3></h3><div class="extra"></div></div>
+		<div class="bd">
+				<div class="inner clearfix">
+					<div class="contact" align="center" style="background-color:#FFF">
+						<br>
+                        <br>
+						<a href="http://game.qq.com" target="_blank" title="腾讯游戏"><img src="../images/img/tencent_game.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.shandagames.com" target="_blank" title="盛大游戏"><img src="../images/img/sdo_game.gif"></a>&nbsp;&nbsp;&nbsp;
+						<a href="http://nie.163.com/" target="_blank" title="网易游戏"><img src="../images/img/netease_game.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.ztgame.com/" target="_blank" title="巨人网络"><img src="../images/img/ztgame.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.wanmei.com" target="_blank" title="完美时空"><img src="../images/img/wanmei_game.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.changyou.com" target="_blank" title="搜狐畅游"><img src="../images/img/changyou_game.gif"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.kingsoft.com/game/" target="_blank" title="金山在线"><img src="../images/img/kingsoft_game.gif"></a>
+						<br>
+                        <br>
+						<a href="http://www.alipay.com" target="_blank" title="支付宝"><img src="../images/img/alipay.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.tenpay.com" target="_blank" title="财付通"><img src="../images/img/tenpay.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.chinapay.com" target="_blank" title="银联支付"><img src="../images/img/chinapay.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.99bill.com" target="_blank" title="快钱支付"><img src="../images/img/99bill.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.cmbchina.com" target="_blank" title="招商银行"><img src="../images/img/cmbchina.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.icbc.com.cn" target="_blank" title="工商银行"><img src="../images/img/icbc.gif"></a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="http://www.ccb.com" target="_blank" title="建设银行"><img src="../images/img/ccb.gif"></a>
+						<br>
+                        <br>
+					</div>	
+				</div>
+		</div>		
+        <br>
+		<p class="copyright" align="right">{$copyright}{if $icp_number}<a href="http://www.miibeian.gov.cn/" rel="external" style="color:#333">{$icp_number}</a>{/if}
+			<script type="text/javascript">
+				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0bfd0694a5044dce7fc6b0e8f9967a8e' type='text/javascript'%3E%3C/script%3E"));
+			</script>			
+		</p>
+	</div>
+</div>
+{$render.after_footer}

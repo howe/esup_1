@@ -1,0 +1,27 @@
+{if $index_ad eq 'sys'}
+{siy:slider_banner}
+{elseif $index_ad eq 'cus'}
+<div class="index_ad">
+	{if $ad.ad_type eq 0}
+	<a href="{$ad.url}" rel="external"><img src="{$ad.content}" width="735px" height="150px"></a>
+	{elseif $ad.ad_type eq 1}
+	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="735" height="150">
+	<param name="movie" value="{$ad.content}"/>
+	<param name="quality" value="high"/>
+	<embed src="{$ad.content}" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="735" height="150"></embed>
+	</object>
+	{elseif $ad.ad_type eq 2}
+	{$ad.content}
+	{elseif $ad.ad_type eq 3}
+	<a href="{$ad.url}" rel="external">{$ad.content}</a>
+	{/if}
+</div>
+{else}
+<div class="index_ad">
+<script type="text/javascript">
+var swf_width=735;
+var swf_height=150;
+</script>
+<script type="text/javascript" src="{$option.static_path}data/flashdata/{$flash_theme}/cycle_image.js"></script>
+</div>
+{/if}

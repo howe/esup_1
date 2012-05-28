@@ -1,0 +1,60 @@
+<div class="goods_details box thin_box">
+	<div class="hd"><h3></h3><div class="extra"></div></div>
+	<div class="bd">
+		<h1>{$auction_goods.goods_name|escape:html}{if $auction.product_id > 0}<em>( {$products_info} )</em>{/if}</h1>
+		<div class="details">
+			<form name="theForm" action="auction.php" method="post">
+			{if $auction.status_no eq 0}
+			<div class="error_box">
+				<p>{$lang.au_pre_start}</p>
+			</div>
+			{elseif $auction.status_no eq 1}
+			<ul class="basic clearfix">
+				<li class="sale_price"><strong>{$lang.au_current_price}{$lang.colon}</strong><em class="price">{$auction.formated_current_price}</em></li>
+				{if $auction.status_no eq 1}
+				<li class="end_time_wrapper"><strong class="label">{$lang.end_time}{$lang.colon}</strong><span class="end_time" title="{siy:date_format date=$auction.gmt_end_time format='Y-m-d-G-i-s'}">{siy:date_format date=$auction.gmt_end_time}</span></li>
+				{/if}
+				<li><strong>{$lang.act_start_time}{$lang.colon}</strong>{$auction.start_time}</li>
+				<li><strong>{$lang.act_end_time}{$lang.colon}</strong>{$auction.end_time}</li>
+				<li><strong>{$lang.au_start_price}{$lang.colon}</strong><em class="price">{$auction.formated_start_price}</em></li>
+				{if $auction.end_price gt 0}
+				<li><strong>{$lang.au_end_price}{$lang.colon}</strong><em class="price">{$auction.formated_end_price}</em></li>
+				{/if}
+				<li><strong>{$lang.au_amplitude}{$lang.colon}</strong><em class="price">{$auction.formated_amplitude}</em></li>
+				{if $auction.deposit gt 0}
+				<li><strong>{$lang.au_deposit}{$lang.colon}</strong><em class="price">{$auction.formated_deposit}</em></li>
+				{/if}
+			</ul>
+			<div class="actions">
+				<p><strong>{$lang.au_i_want_bid}{$lang.colon}</strong><input name="price" type="text" class="price_input" /></p>
+				<p><input name="bid" type="submit" id="bid" value="{$lang.btn_bidding}" class="submit btn_special btn_bidding"/></p>
+				<input name="act" type="hidden" value="bid"/>
+				<input name="id" type="hidden" value="{$auction.act_id}"/>
+			</div>
+			{else}
+				{if $auction.is_winner}
+				<div class="action">
+					<p>{$lang.au_is_winner}</p>
+					<input name="buy" type="submit" value="{$lang.button_buy}"/>
+					<input name="act" type="hidden" value="buy" />
+					<input name="id" type="hidden" value="{$auction.act_id}" />
+				</div>
+				{else}
+				<div class="notice_box">
+					<p>{$lang.au_finished}</p>
+				</div>
+				{/if}
+			{/if}
+			</form>
+		</div>
+		<div class="extra_details">
+			<div class="gallery">
+				<a href="{$auction_goods.url}" class="cover"><img src="{$option.static_path}{$auction_goods.goods_img}"/></a>
+			</div>
+		</div>
+		{if $auction.act_desc}
+		<h2 class="title"><span>{$lang.activity_intro}</span><em class="extra"></em></h2>
+		<div class="goods_description">{$auction.act_desc}</div>
+		{/if}
+	</div>
+</div>
