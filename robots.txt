@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /admin/
+Disallow: /howe/
 Disallow: /cert/
 Disallow: /data/
 Disallow: /includes/
