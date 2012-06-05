@@ -232,7 +232,7 @@ else
     $category   = !empty($_REQUEST['category']) ? intval($_REQUEST['category'])        : 0;
     $categories = ($category > 0)               ? ' AND ' . get_children($category)    : '';
     $brand      = $_REQUEST['brand']            ? " AND brand_id = '$_REQUEST[brand]'" : '';
-    $outstock   = !empty($_REQUEST['outstock']) ? " AND g.goods_number > 0 "           : '';
+    $outstock   = !empty($_REQUEST['outstock']) ? " "           : '';
 
     $min_price  = $_REQUEST['min_price'] != 0                               ? " AND g.shop_price >= '$_REQUEST[min_price]'" : '';
     $max_price  = $_REQUEST['max_price'] != 0 || $_REQUEST['min_price'] < 0 ? " AND g.shop_price <= '$_REQUEST[max_price]'" : '';
