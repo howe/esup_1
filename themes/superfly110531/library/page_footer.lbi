@@ -90,7 +90,8 @@
 			<script type="text/javascript">
 				var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
 				document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F0bfd0694a5044dce7fc6b0e8f9967a8e' type='text/javascript'%3E%3C/script%3E"));
-			</script>		
+			</script>
+			<script src="http://se.360.cn/common/qihoo_ie6_tips.js"></script>	
 		</p>
 	</div>
 </div>
