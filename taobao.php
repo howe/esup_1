@@ -126,7 +126,7 @@
 	padding-bottom:40px;
 }
 .qr{
-    background:#fff url(./images/QR.gif) 2px center no-repeat;color:#999999;
+    background:#fff url(http://ka.esup.cn/images/QR.gif) 2px center no-repeat;color:#999999;
     padding-left:40px;
     padding-bottom:40px;
 }
